@@ -1,0 +1,30 @@
+=== Apstraktne klase
+
+Klasa koja nema implementaciju jednog ili više svojstava se naziva
+apstraktna klasa.
+
+Svojstvo koje nema implementaciju označava se pomoću ključne reči `deferred`
+koje se nalazi umesto `do` bloka.
+
+Ako se vratimo na primer sa oblicima, svojstvo `obim` unutar klase
+`OBLIK` bi moglo izgledati ovako:
+[source]
+----
+deferred class OBLIK --<1>
+
+…
+feature
+	obim is deferred end --<2>
+…
+----
+<1> Apstraktna klasa koja sadrži barem jedno apstraktno svojstvo
+mora biti označena kao apstraktna pomoću ključne reči `deferred`
+<2> Apstraktno svojstvo `obim`
+
+Klasa koja nasledi apstraktnu klasu može implementirati njena neimplementirana
+svojstva bez navođenja njihovih naziva u `redefine` bloku. Ukoliko
+klasa ne implementira sva apstraktna svojstva, ona takođe mora biti
+apstraktna klasa i njena definicija mora počinjati sa `deferred class…`.
+
+Apstraktne klase ne mogu biti direktno instancirane, ali se može primeniti
+polimorfizam.

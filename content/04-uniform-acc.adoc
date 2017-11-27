@@ -1,0 +1,24 @@
+=== Princip uniformnog pristupa (uniform-access principle) [UAP]
+
+Princip uniformnog pristupa iskazuje da sve usluge ponuđene od strane servisa
+treba da budu dostupne putem jedne uniformne notacije, koja ne odaje informaciju
+o tome da li je usluga implementirana putem čitanja sačuvanog podataka ili
+izračunavanjem. Drugim rečima, govori da ne treba postojati razlika u radu
+sa poljima i metodama, odnosno upitima.
+
+Problem kod neuniformnog načina pristupa nastaje kod velikih softverskih
+projekata ili biblioteka. Veoma kasno u proizvodnom
+ciklusu može se pojaviti potreba da se nekom polju ipak pristupi putem metode,
+umesto direktnog pristupa. Ovakva promena u datoj klasi bi značila da se
+svi pristupi polju u celom programu moraju promeniti. Softver može imati
+veoma veliki broj linija i takva izmena bi mogla oduzeti mnogo vremena za
+tako trivijalnu promenu.
+
+Uniformni pristup omogućava slobodno menjanje polja u poziv funkcije i obrnuto,
+bez potrebe za ikakvom promenom u klijentima koji koriste tu klasu.
+
+Problem ovog principa nastaje u slučajevima kada je bitno znati
+informaciju o tome da li se podatku pristupa njegovim čitanjem iz memorije
+ili se vrši neka kompleksna kalkulacija koja može potrajati veoma dugo.
+Programer, nesvestan da pristup datom upitu iziskuje veliki broj kalkulacija,
+može napraviti neoptimizovan program.

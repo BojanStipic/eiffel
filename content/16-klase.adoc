@@ -1,0 +1,96 @@
+
+
+=== Klase
+
+.Opšti kostur klase:
+[source]
+----
+class NAZIV
+
+inherit
+	RODITELJSKA_KLASA
+		rename … end
+		export … end
+		undefine … end
+		redefine … end
+		select … end
+
+create
+	-- nazivi konstruktora
+
+feature {VIDLJIVOST}
+	-- definicija svojstava
+
+invariant
+	-- invarijante klase
+
+end
+----
+
+Sekcija `inherit` navodi roditeljske klase koje se nasleđuju.
+Naziv roditeljske klase može biti praćen opcionim dodacima koji opisuju način
+na koji se adaptiraju svojstava. Ovi segmenti se navode pomoću ključnih reči:
+
+* `rename`—sadrži svojstva sa promenjenim nazivom
+* `export`—omogućava promenu vidljivosti svojstava
+* `undefine`—sadrži maskirana svojstva
+* `redefine`—sadrži svojstva koja će biti redefinisana
+* `select`—bira implementaciju u slučaju duplikata kod polimorfizma
+
+.Postoje dve specijalne klase:
+. `ANY`—klasa koju sve ostale klase nasleđuju direktno ili indirektno. Ukoliko
+klasa nema `inherit` blok, ova klasa se implicitno nasleđuje.
+. `NONE`—klasa koja nasleđuje sve ostale klase direktno ili indirektno.
+
+Primer hijerarhije klasa u Eiffel-u:
+
+image::pics/01-hijerarhija.png[]
+
+////
+@startuml
+ANY <|-- KLASA_1
+ANY <|-- KLASA_2
+ANY <|-- KLASA_3
+ANY <|-- KLASA_4
+KLASA_1 <|-- KLASA_5
+KLASA_2 <|-- KLASA_5
+KLASA_4 <|-- KLASA_6
+KLASA_2 <|-- KLASA_7
+KLASA_6 <|-- KLASA_7
+ANY <|-- KLASA_8
+KLASA_5 <|-- NONE
+KLASA_7 <|-- NONE
+KLASA_8 <|-- NONE
+@enduml
+////
+
+Sekcija `create` govori koje procedure se mogu koristiti za inicijalizaciju
+objekta. Klasa može imati proizvoljan broj takvih procedura sa
+proizvoljnim brojem argumenata. U ovoj sekciji se samo nabrajaju
+nazivi procedura koje mogu biti korišćene kao konstruktori, a njihova
+implementacija treba da se nalazi u sekciji `feature`.
+
+Sekcija `feature` može biti proizvoljno mnogo i one služe za grupisanje
+svojstava iste vidljivosti. Vidljivost je u Eiffel-u veoma fleksibilna
+i može se tačno odrediti kojim klasama je šta vidljivo. Vidljivost
+se u Eiffel terminologiji naziva eksportovanje. Unutar vitičastih
+zagrada može se navesti jedna ili više klasa kojima će svojstva biti vidljiva.
+Pored navedenih klasa, svojstva su vidljiva i svim njihovim izvedenim klasama.
+Na osnovu toga, ukoliko želimo da svojstva budu vidljiva svima (public), možemo
+navesti klasu `ANY` koju sve klase nasleđuju na eksplicitan ili
+implicitan način. Ukoliko želimo da svojstva ne budu vidljiva van
+konteksta te klase (private), unutar zagrada možemo navesti klasu `NONE`,
+koja nasleđuje sve ostale klase i nalazi se na dnu hijerarhije. Ukoliko se
+vitičaste zagrade u potpunosti izostave, implicitna je `{ANY}` vidljivost,
+odnosno svojstva su vidljiva svima. Konstruktori takođe mogu imati `{NONE}`
+vidljivost, ili bilo koju drugu, međutim ona važi samo ako se pozivaju kao
+normalna procedura.
+Ukoliko se konstruktor koristi za inicijalizaciju objekta, njegova vidljivost
+nije bitna i svi ga mogu koristiti.
+
+Sekcija `invariant` sadrži uslove koji moraju biti ispunjeni tokom celog
+životnog veka objekta. Ovi uslovi se proveravaju prilikom inicijalizacije i
+svakog narednog pristupa bilo kom svojstvu. Ukoliko se bilo koji
+uslov naruši, znači da postoji greška u programu, koja se treba otkloniti.
+Invarijante svih roditeljskih klasa se akumuliraju i zajedno važe za datu
+klasu sa njenim sopstvenim invarijantama.

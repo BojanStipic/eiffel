@@ -1,0 +1,67 @@
+<<<
+
+[[assigner]]
+=== Dodeljivačke procedure (assigner procedures)
+
+[quote, Eiffel Standard ECMA-367 2nd Edition / June 2006, strana 61 tačka 8.5.21]
+____
+Prilikom dodele `x := v`, `x` mora biti promenljiva. Ukoliko je `item`
+atribut od `a` tipa `T`, programeri naviknuti na druge programske jezike mogu
+doći u iskušenje da napišu dodelu kao `a.item := v` kako bi dodelili vrednost
+direktno na odgovarajuće polje objekta, međutim ovo nije dozvoljeno jer
+direktno prkosi svim pravilima apstrakcije podataka i objektne tehnologije.
+Uobičajeni mehanizam je da autor klase `T` pruži `setter` komandu, omogućavajući
+klijentima da koriste `a.put (v)`. Autor klase takođe može, zbog pogodnosti,
+dozvoliti `a.item := v` kao skraćenicu za `a.put (v)`, tako što će
+specificirati `put` kao "assigner" komandu asociranu sa `item`.
+Instrukcija kao što je `a.item := v` nije dodela već alternativna notacija
+za poziv procedure. Ovo je poznato pod nazivom "assigner call".
+
+Ova notacija je takođe pogodna za svojstva koja imaju `[]` alias,
+dozvoljavajući na primer kod niza poziv `a[i] := v`, kao skraćenicu za
+`a.put (v, i)`.
+____
+
+U programskom jeziku Eiffel, polja klase su "read-only" iz ugla klijenta.
+Da bi promenili vrednost polja, potrebno je koristiti setter procedure.
+
+.Na primer:
+[source]
+----
+class
+	STUDENT
+
+feature
+
+	indeks: INTEGER
+
+	set_indeks ( i: INTEGER ) is
+		do
+			indeks := i
+		end
+end
+----
+
+Prema tome, klijent neće biti u mogućnosti da promeni broj indeksa
+kao `bojan.indeks := 68`, već samo pomoću setter procedure
+kao `bojan.set_indeks(68)`.
+
+Međutim, Eiffel omogućava sintaksu poput `bojan.indeks := 68`, upotrebom
+dodeljivačkih procedura. Kreator klase treba definisati takvu proceduru
+upotrebom ključne reči `assign`.
+
+.Na primer:
+[source]
+----
+…
+	indeks: INTEGER assign set_indeks
+
+	set_indeks ( i: INTEGER ) is
+		do
+			indeks := i
+		end
+…
+----
+
+Na ovaj način `bojan.indeks := 68` postaje alternativni zapis za
+`bojan.set_indeks(68)`.

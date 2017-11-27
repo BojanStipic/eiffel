@@ -1,0 +1,104 @@
+=== Nasleđivanje i višestruko nasleđivanje
+
+Klase u Eiffel-u imaju punu kontrolu nad svojstvima koja nasleđuju od strane
+roditelja. Ova kontrola se postiže pomoću specijalnih
+segmenata `rename`, `export`, `undefine`, `redefine` i `select`.
+
+==== Redefinicija
+
+Redefinicija omogućava promenu implementacije svojstva definisanog
+unutar roditeljske klase.
+
+Uzmimo za primer klase `KVADRAT` i `TROUGAO` koje nasleđuju opštu klasu `OBLIK`.
+Klasa `OBLIK` poseduje svojstvo `obim`, međutim, obim
+se izračunava različito za različite oblike. Klase `KVADRAT` i `TROUGAO` treba
+da promene implementaciju ovog svojstva.
+
+.kvadrat.e
+[source]
+----
+class KVADRAT
+
+inherit
+	OBLIK
+		redefine
+			obim
+		end
+
+feature
+
+    obim is
+			-- Nova implementacija obima.
+		do
+			Result := 4 * a
+		end
+
+end
+----
+
+Bez sekcije `redefine`, definicija svojstva `obim` unutar klase `KVADRAT` ne bi
+bila dozvoljena, jer bi postojala dva svojstva sa istim imenom, i došlo
+bi do greške prilikom kompajliranja. Sekcija `redefine` ovo omogućava
+tako što iskazuje da nova implementacija redefiniše staru.
+
+Prilikom redefinisanja rutine, često dolazi do potrebe za pozivanjem stare
+implementacije unutar roditeljske klase. Ovo je moguće uraditi upotrebom
+promenljive `Precursor`.
+
+.Na primer:
+[source]
+----
+…
+	redefinisana_rutina (i : INTEGER) is
+		do
+			Precursor (i)
+			… -- Ostatak implementacije
+		end
+----
+
+==== Promena vidljivosti
+
+Ključna reč `export` nam omogućava da promenimo vidljivost svojstva unutar
+izvedene klase.
+
+.Na primer:
+[source]
+----
+class KVADRAT
+
+inherit
+    OBLIK
+        export {NONE}
+			obim
+		end
+
+    …
+----
+
+Na ovaj način promenili smo vidljivost svojstva `obim` u `{NONE}`.
+
+==== Polimorfizam
+
+Polimorfizam iskazuje da se sve izvedene klase mogu posmatrati i kao
+njihove roditeljske klase. Odnosno, referenca na tip `RODITELJ` može
+pokazivati i na bilo koju izvedenu klasu iz roditelja.
+
+Prema tome, sledeći kod je validan ako i samo ako je `SIN` izveden od `OTAC`:
+[source]
+----
+ref_otac : OTAC
+ref_sin : SIN
+create ref_sin
+
+ref_otac := ref_sin
+----
+
+TIP: Na osnovu polimorfizma, `Void` može da se dodeli bilo kojoj referenci,
+jer je `Void` tipa `NONE`, a pošto se `NONE` nalazi na dnu hijerarhije
+nasleđivanja, `Void` odgovara svakoj referenci.
+
+U Eiffel-u se kod polimorfizma uvek vrši dinamičko dodeljivanje adrese rutine
+koju treba pozvati. Ukoliko nema polimorfizma, nema ni potrebe za dinamičkim
+dodeljivanjem, a ono može biti sporije od statičkog. Međutim, nema specijalne
+sintakse za određivanje načina povezivanja, već se ono smatra
+optimizacijom kompajlera.

@@ -1,0 +1,184 @@
+=== Višestruko nasleđivanje
+
+Višestruko nadleđivanje može doneti brojne probleme, kao što su
+sukobi naziva i "problem dijamanta". U Eiffel Kernel biblioteci se višestruko
+nasleđivanje dešava veoma često, na primer klasa `INTEGER` nasleđuje `NUMERIC`
+i `COMPARABLE` klase, pa zbog toga Eiffel ove probleme rešava veoma efikasno,
+na nekoliko različitih načina.
+
+==== Sukob naziva
+
+Sukob naziva nastaje ukoliko dve ili više roditeljskih klasa sadrže svojstvo
+sa istim nazivom. Na primer, ukoliko klasa `C` nasledi klase `A` i `B` i one obe poseduju svojstvo `foo`, koje svojstvo
+treba biti pozvano ako se napiše `obj_c : C; obj_c.foo`?
+
+U Eiffel-u, ovaj problem se može rešiti na nekoliko načina.
+
+.Pomoću redefinisanja:
+[source]
+----
+class C
+
+inherit
+	A
+		redefine
+			foo
+		end
+	B
+		redefine
+			foo
+		end
+feature
+	foo is
+			-- Nova implementacija
+		do
+			Precursor {A}
+			Precursor {B}
+			… -- Ostatak implementacije
+		end
+end
+----
+Na ovaj način, klasa `C` je spojila oba svojstva `foo` u jedno, tako da više
+ne postoje dva svojstva sa istim nazivom.
+
+.Pomoću preimenovanja:
+[source]
+----
+class C
+
+inherit
+	A
+
+	B
+		rename
+			foo as bar
+		end
+
+	…
+end
+----
+Sada oba svojstva imaju jedinstven naziv i nema sukoba.
+
+.Pomoću brisanja:
+[source]
+----
+class C
+
+inherit
+	A
+
+	B
+		undefine
+			foo
+		end
+
+	…
+end
+----
+Na ovaj način se nasleđuje samo `foo` iz klase `A`.
+
+==== Problem dijamanta
+
+Problem dijamanta nastaje ukoliko klasa `C` nasledi klase `A` i `B` koje
+imaju zajedničkog roditelja `ROOT`.
+
+image::pics/02-dijamant.png[]
+
+////
+@startuml
+ROOT <|-- A
+ROOT <|-- B
+A <|-- C
+B <|-- C
+@enduml
+////
+
+Da li klasa `C` treba da sadrži svojstva iz `ROOT` klase dva puta kao *kopiju*,
+ili ona trebaju biti *deljena*? Eiffel omogućava i jedno i drugo u zavisnosti
+od potrebe.
+
+Svojstvo koje je dvostruko nasleđeno biće deljeno ako je pod istim nazivom. +
+Svojstvo koje je dvostruko nasleđeno biće kopija ako je preimenovano.
+
+Dakle, ova dilema se rešava jednostavnom upotrebom `rename` iskaza.
+
+Međutim, problem ostaje kod polimofrizma ukoliko dođe do kopije nekog svojstva.
+[source]
+----
+root_ref : ROOT
+c_ref : C
+create c_ref
+
+root_ref := c_ref
+root_ref.foo --<1>
+----
+<1> Koja implementacija se poziva? Implementacija iz klase `A` ili iz klase `B`?
+
+Ovaj problem se može rešiti upotrebom `select` iskaza.
+
+.a.e
+[source]
+----
+class A
+
+inherit
+	ROOT
+		redefine
+			foo
+		end
+
+…
+----
+
+.b.e
+[source]
+----
+class B
+
+inherit
+	ROOT
+		redefine
+			foo
+		end
+…
+----
+
+.c.e
+[source]
+----
+class C
+
+inherit
+	A
+		rename
+			foo as a_foo
+		select
+			a_foo
+		end
+
+	B
+		rename
+			foo as b_foo
+		end
+
+…
+----
+
+Pre svega, u klasi `C` barem jedno svojstvo `foo` moramo preimenovati, kako
+ne bi došlo do sukoba naziva.
+
+Nakon preimenovanja, moguće je pozvati i jednu i drugu implementaciju,
+s obzirom da one imaju različite nazive.
+[source]
+----
+c_ref : C
+create c_ref
+c_ref.a_foo --<1>
+c_ref.b_foo --<2>
+----
+<1> Pozvana implementacija iz `A`
+<2> Pozvana implementacija iz `B`
+
+Međutim, da bismo izbegli dvosmislenost kod polimorfizma, potrebno je odabrati
+*jednu i samo jednu* implementaciju upotrebom `select` iskaza, kao što je
+prikazano kod klase `C`.

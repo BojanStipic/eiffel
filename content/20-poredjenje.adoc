@@ -1,0 +1,68 @@
+=== Poređenje objekata
+
+Način na koji se vrši poređenje zavisi od toga da li je promenljiva referenca
+na objekat ili proširena promenljiva.
+
+==== Poređenje jednakosti pomoću operatora `=` i `/=`
+
+U slučaju dve reference koje su inicijalizovane na neku vrednost koja nije
+`Void`, operator `=` direktno poredi adrese koje one sadrže, a ne
+sadržaj koji se nalazi na tim adresama. Dakle, ukoliko inicijalizujemo
+dva objekta istim konstruktorom na istu vrednost, oni će efektivno biti isti,
+međutim operator `=` će vratiti `False` zato što se ne radi o jednom objektu
+već dve kopije.
+
+Operator `/=` funkcioniše na identičan način kao i operator `=` samo što
+on predstavlja negaciju, i služi kao skraćeni zapis za korišćenje `not`
+operatora.
+
+U slučaju promenljivih proširenog tipa, ovi operatori porede njihov sadržaj,
+na najnižem nivou, bit po bit u samoj memoriji gde se nalaze. Dozvoljeno
+je porediti samo tipove koji su kompatibilni, na primer nije moguće
+porediti `INTEGER` i `CHARACTER` direktno.
+
+Operatori `=` i `\=` su predefinisani, ugrađeni u unutrašnjost kompajlera i
+nije ih moguće redefinisati.
+
+==== Poređenje jednakosti pomoću rutine `is_equal`
+
+Rutina `is_equal` se nalazi u klasi `ANY` i ukoliko nije redefinisana od
+strane klase koju poredimo, njeno standardno ponašanje je da poredi sva
+polja oba objekta pomoću operatora `=`.
+Na primer, klasa `A` sadrži polja `x`, `y` i `z` i dve reference se uporede:
+[source]
+----
+a_1, a_2 : A
+… -- Inicijalizacija
+a_1.is_equal(a_2)
+----
+U ovom slučaju, `a_1.is_equal(a_2)` će biti identično
+kao `(a_1.x = a_2.x) and (a_1.y = a_2.y) and (a_1.z = a_2.z)`.
+
+Ovo ponašanje je odgovarajuće u slučaju da su `x`, `y` i `z` neki od
+fundamentalnih tipova ili bilo koji drugi prošireni tip. Međutim,
+ukoliko klasa `A` sadrži polja koja su sama reference na neke druge objekte,
+ova implementacija rutine `is_equal` neće vratiti željenu vrednost, jer
+operator `=` kod referenci poredi samo adrese. U tom slučaju, potrebno
+je ručno redefinisati rutinu `is_equal` unutar klase.
+
+Na primer, redefinicija `is_equal` bi mogla izgledati ovako:
+[source]
+----
+is_equal (other: A): BOOLEAN is
+	do
+		Result := x.is_equal(other.x) and y.is_equal(other.y) and z.is_equal(other.z)
+	end
+----
+
+Rutina `is_equal` takođe ima alternativni naziv `~` koji se može koristiti
+kao skraćeni zapis.
+
+==== Poređenje jednakosti pomoću rutine `is_deep_equal`
+
+U klasi `ANY` je definisana i rutina `is_deep_equal` koja se ne može
+redefinisati i koja rekurzivno poredi sva polja ponovnim
+pozivom `is_deep_equal` nad njima i tako sve dok se ne dođe do kraja. Međutim,
+u nekim strukturama, kao što je cirkularna spregnuta lista, može doći do
+beskonačne petlje i zato se preporučuje da se ova metoda koristi
+sa velikim oprezom.

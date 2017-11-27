@@ -1,0 +1,87 @@
+<<<
+
+=== Nizovi
+
+U programskom jeziku Eiffel ne postoji specijalna sintaksa za nizove. Kao i sve
+ostalo, nizovi su samo obična generična klasa sa svojstvom `item` koje može
+imati alternativni naziv `[]`.
+
+Zavirujući u izvorni kod kompajlera—"The Eiffel Compiler" tecomp, možemo videti klasu ARRAY u datoteci `array.e` čiji deo deklaracije izgleda ovako:
+----
+class ARRAY[G] … create make … feature …
+
+	make_filled (value:G; l,u: INTEGER)
+		 -- Create an array with the lower bound `l'
+		 -- and upper bound `u' and fill it with `value'.
+		 -- In case of u < l the array is empty
+
+	lower: INTEGER
+		-- The lower bound of the array index.
+
+	upper: INTEGER
+		-- The upper bound of the array index.
+
+	count: INTEGER
+		-- Number of elements in the array.
+
+	item alias "[]" (i: INTEGER): G
+			-- The i-th element of the array.
+		require
+			lower <= i
+			i     <= upper
+			…
+		end
+
+	put (v: G; i: INTEGER)
+			-- Put `v' at position `i' of the array.
+		require
+			lower <= i and i <= upper
+			…
+		end
+end
+----
+
+WARNING: Gore navedeni primer se odnosi samo na pomenuti kompajler i prikazan
+je u demonstrativne svrhe. Standard "The Eiffel Library Kernel" ne zahteva
+postojanje operatora `[]` u klasi `ARRAY`. Zbog toga mnogi drugi kompajleri, pa
+i LibertyEiffel, nemaju implementiran operator `[]`, već infiksni operator `@`.
+
+S obzirom da je `ARRAY` generička klasa sa generičkim parametrom `G`, ona se
+može deklarisati sa bilo kojim tipom. Na primer:
+[source]
+----
+arr_int : ARRAY[INTEGER]
+arr_char : ARRAY[CHARACTER]
+matrix : ARRAY[ARRAY[INTEGER]]
+----
+
+Za inicijalizaciju niza možemo koristiti `make` konstruktor.
+Na primer:
+[source]
+----
+create arr_int.make ( 0, 9 ) --<1>
+----
+<1> Zauzima se mesto za deset elemenata sa indeksima `0..9`.
+
+U programskim jezicima kao što je C, elementi se indeksiraju od nule zato
+što je C modelovan po uzoru na asemblerski jezik gde indeksi predstavljaju offset. U Eiffel-u, pošto je niz klasa, indeksi mogu biti arbitrarni. Na primer,
+niz se može inicijalizovati na neki od sledećih načina:
+[source]
+----
+create arr_int.make ( 0, 9 )
+create arr_int.make ( 1, 10 )
+create arr_20_vek.make ( 1901, 2000 ) --<1>
+----
+<1> Primer modelovanja dvadesetog veka, gde svaka godina ima odgovarajući indeks.
+
+Svojstvo `item` poseduje alternativni naziv `[]`, pa se elementu može pristupiti
+skraćenim zapisom.
+[source]
+----
+arr_int.item(1)
+arr[1]
+----
+Gore navedene linije koda su ekvivalentne i obe pristupaju elementu pod rednim
+brojem `1`.
+
+WARNING: Nije moguće izvršiti dodelu vrednosti kao `arr[1] := 7`. Ovo se može omogućiti upotrebom dodeljivačkih procedura. Za detaljnije objašnjenje pogledati sekciju <<assigner, 2.8. Dodeljivačke procedure (assigner procedures) [strana 21]>>

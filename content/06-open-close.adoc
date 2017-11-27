@@ -1,0 +1,37 @@
+=== Otvoreno-zatvoreni princip (open-close principle) [OCP]
+
+Otvoreno-zatvoreni princip iskazuje da entiteti kao što su klase i funkcije
+treba da budu otvoreni za proširivanje, ali zatvoreni za modifikaciju. Drugim
+rečima, entiteti treba da omoguće da se njihovo ponašanje proširi bez direktne
+izmene njihovog izvornog koda.
+
+Ovaj princip prvobitno je definisao Bertrand Meyer:
+[quote, Bertrand Meyer, Object Oriented Software Construction]
+____
+* Modul se smatra otvorenim ukoliko je i dalje dostupan za proširivanje.
+Na primer, trebalo bi da bude moguće dodavanje polja strukturi podataka
+koju sadrži, ili dodavanje novih elemenata skupu funkcija koje izvršava.
+* Modul se smatra zatvorenim ako je dostupan za korišćenje drugim modulima.
+____
+
+Takva, gore navedena definicija, zahteva da dodavanje polja i funkcija
+postojećoj biblioteci prouzrokuje potrebu da se promene i svi programi koji
+zavise od te biblioteke.
+
+Meyer-ovo preporučeno rešenje za ovu dilemu se oslanjalo na koncept nasleđivanja:
+[quote, Bertrand Meyer, Object Oriented Software Construction]
+____
+Klasa je zatvorena, zato što se može kompajlirati, čuvati u biblioteci,
+koristiti kao početna tačka za upoređivanje i koristiti od strane klijentskih
+klasa. Takođe, ona je i otvorena, zato što je bilo koja nova klasa može
+koristiti kao bazu, dodavajući nove karakteristike.
+____
+
+'''
+
+Tokom 90-ih godina otvoreno-zatvoreni princip je popularno redefinisan, tako da danas postoji i druga definicija ovog termina koja se odnosi na polimorfizam i
+apstraktne interfejse.
+
+Polimorfizam omogućava klasi da pored otvorenosti za proširivanje, omogući i
+otvorenost za promenu implementacije. Primenom apstraktnih klasa i interfejsa,
+klijent može da poziva metode bez poznavanja njene tačne implementacije.

@@ -1,0 +1,30 @@
+Eiffel donosi mnoge inovativne ideje koje ga čine jedinstvenim. Dizajniran
+je da podržava jednu i samo jednu paradigmu programiranja—objektno orijentisano
+programiranje.
+
+Poseduje garbage collector i jedinstvenu sintaksu pristupa referencama
+i proširenim tipovima, pa tako olakšava upotrebu objekata sa dinamički
+zauzetim prostorom.
+
+Nasleđivanje je implementirano na takav način da daje veoma veliku
+kontrolu nad svojstvima koje klasa nasleđuje.
+Upotrebom redefinicija, promena naziva i selektovanja,
+nasleđivanje je sigurno i rešavaju se svi problemi
+koji se pojavljuju kod višestrukog nasleđivanja.
+
+Dizajn po ugovoru je ključna karakteristika Eiffel-a koji
+predstavlja ugrađen mehanizam za prevenciju grešaka i omogućava pravljenje
+softvera visoke pouzdanosti. Rutine mogu posedovati specijalne ugovore
+koji moraju biti ispunjeni pre i posle izvršavanja, dok klase mogu posedovati
+ugovore koji se nasleđuju i moraju biti ispunjeni tokom celog životnog veka
+objekta.
+
+S obzirom da Eiffel kompajler prevodi kod u C međukod, programi napisani u
+njemu mogu se koristiti na svim platformama koje poseduju C kompajler.
+Takođe, C kompajler može vršiti i optimizaciju koda, pa tako
+Eiffel programi rade podjednako brzo i efikasno kao i C programi.
+
+Nažalost, nedostatak popularnosti i manjak dostupnih biblioteka mogu ograničiti
+praktičnu korisnost ovog programskog jezika, ali korisno ga je izučavati
+čak i ukoliko ga ne planiramo koristiti svakodnevno, zbog veoma čistog i
+konzistentnog objektno orijentisanog dizajna.

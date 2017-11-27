@@ -1,0 +1,45 @@
+=== Konstante
+
+`*BOOLEAN*` konstante su definisane rezervisanim rečima True i False.
+
+`*INTEGER*` konstante su sekvenca dekadnih brojeva u dometu `INTEGER` klase.
+Zbog bolje čitljivosti donja crta može biti korišćena za grupisanje brojeva.
+
+Na primer:
+....
+1234
+1_000_000_000
+-256
+....
+
+`INTEGER` konstane takođe mogu biti zapisane u heksadecimalnom, oktalnom i
+binarnom obliku, pomoću prefiksa `0x`, `0c` i `0b` respektivno.
+
+Na primer:
+....
+0xDEADBEEF
+0c40
+0b101
+....
+
+`*CHARACTER*` konstanta se predstavlja kao jedan karakter unutar jednostrukih
+navodnika.
+
+Na primer:
+....
+'a'
+'#'
+'Z'
+....
+
+Nevidljivi karakteri se mogu predstaviti sekvencama, na primer `%N`, što
+označava novi red.
+
+`*REAL*` konstante mogu biti:
+....
+1.
+1.0
+1e4
+.5
+0.5
+....

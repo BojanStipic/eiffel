@@ -1,0 +1,114 @@
+=== Eiffel razvojni okvir
+
+Eiffel razvojni okvir (Eiffel development framework) podrazumeva skup metoda i
+alata koji omogućavaju razvijanje softvera visokog kvaliteta i velikih razmera,
+pomoću jeftinog procesa proizvodnje.
+
+Prvobitno dizajniran 1985. godine od strane francuskog profesora--Bertrand
+Meyer (zagovornik objektno orijentisanog programiranja i autor knjige
+"Object-Oriented Software Construction"), sa ciljem povećanja pouzdanosti
+komercijalnog softvera. Bertrand je osnovao kompaniju Eiffel Software, a 2005.
+godine Eiffel je postao ISO standardizovan.
+
+
+.Razvojni okvir se sastoji iz dva usko povezana pojma:
+. Eiffel metoda programiranja—skup principa i način razmišljanja o softveru
+koji je u potpunosti objektno orijentisan.
+. Eiffel programski jezik—notacija koja omogućava opis sistema razvijenog
+pomoću Eiffel metodologije.
+
+.Eiffel metodologija je bazirana na principima kao što su:
+* Dizajn po ugovoru (Design by Contract(TM))
+* Razdvajanje komanda-upit (command-query separation)
+* Princip uniformnog pristupa (uniform-access principle)
+* Princip jedinstvenog izbora (single-choice principle)
+* Otvoreno-zatvoreni princip (open-close principle)
+* Razdvajanje opcija-operand (option-operand separation)
+
+.Softver napisan u Eiffel programskom jeziku je:
+Pouzdan:: Bagovi lako uočljivi primenom metode Dizajn po ugovoru(TM).
+Za višekratnu upotrebu:: Objektno orijentisan način programiranja omogućava kod
+koji se može iznova koristiti.
+Proširiv:: Postojeći programi se lako proširuju i nadograđuju.
+Portabilan:: Programi se mogu prevesti u C izvorni kod, a zatim kompajlirati na
+bilo kojoj platformi sa standardnim C kompajlerom.
+
+=== Kompajler
+
+Postoji više implementacija programskog jezika Eiffel:
+
+"The Eiffel Compiler" tecomp—implementira prvu verziju ISO standarda
+(ECMA-367, ISO/IEC 25436). Kompajler više nije u aktivnom razvoju.
+
+Gobo Eiffel—koristi manje striktnu, MIT licencu, pa se može koristiti i za
+komercijalni vlasnički softver. Cilj projekta je praćenje ISO standarda u što
+većoj meri.
+
+SmartEiffel—deo GNU projekta. Prevodi kod u C ili Java bytecode, pa se može
+koristiti za pisanje programa koji mogu raditi na bilo kojoj platformi sa ANSI C
+kompajlerom ili Java virtuelnom mašinom. Ne implementira standard u potpunosti.
+Razvoj je zaustavljen 2005. godine.
+
+LibertyEiffel—fork gore pomenutog SmartEiffel kompajlera, nastavlja dalji
+razvoj i implementaciju novog ISO standarda. Trenutno je oficijalni GNU
+kompajler za Eiffel jezik.
+
+Eiffel Studio (Integrisano razvojno okruženje)—kombinacija više alata
+integrisanih u jedan korisnički interfejs. Dostupan u GPL i komercijalnoj
+licenci.
+
+'''
+
+Za potrebe ovog rada i za kompajliranje svih primera koristićemo LibertyEiffel.
+
+LibretyEiffel se može preuzeti sa web stranice http://www.liberty-eiffel.org/ u
+obliku tar arhive, a zatim kompajlirati na bilo kojem Linux
+ili Unix-like sistemu koji poseduje gcc kompajler na sledeći način:
+[source,bash]
+----
+tar -zxvf <release>.tar.gz
+cd <release>
+./install.sh -bootstrap
+----
+
+TIP: Za detaljnije instrukcije i alternativne metode instalacije pogledati:
+http://wiki.liberty-eiffel.org/index.php/Getting_Started
+
+Nakon kompajliranja, potrebno je dodati `<release>/target/bin` direktorijum u
+`$PATH` promenljivu:
+
+[source,bash]
+----
+echo 'PATH="$PATH:~/<release>/target/bin"' >> ~/.bashrc
+----
+
+=== Terminologija
+
+Eiffel je u potpunosti objektno orijentisan programski jezik. Osnovna
+gradivna jedinica je *klasa (class)*. Sav ostali kod se mora nalaziti unutar
+neke klase.
+
+Klase su grupisane u *klastere (clusters)* koji su uglavnom asocirani
+sa direktorijumom u sistemu podataka.
+
+Eiffel *sistem (system)* je skup klasa od kojih se može dobiti izvršni program.
+
+Svaki Eiffel program sadrži *korensku (root)* klasu koja se prva instancira po
+pokretanju programa.
+
+Klasa se sastoji iz *svojstava (features)*.
+
+.Svojstvo sa stanovišta servera (implementacije) može biti:
+* *Atribut (attribute)*—ako predstavlja podatak sačuvan u memoriji
+* *Rutina (routine)*—ako sadrži logiku za računanje +
+Rutina može biti:
+** *Funkcija (function)*—ako ima povratnu vrednost
+** *Procedura (procedure)*—ako nema povratnu vrednost
+
+.Svojstvo sa stanovišta klijenta može biti:
+* *Komanda (command)*—ako nema povratnu vrednost, a ima bočne efekte, odnosno
+menja stanje objekta
+* *Upit (query)*—ako ima povratnu vrednost i vraća rezultat upita +
+
+Prema tome, upit se može implementirati kao atribut ili funkcija, dok se
+komanda može implementirati samo preko procedure.

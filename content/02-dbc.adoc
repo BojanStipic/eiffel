@@ -1,0 +1,133 @@
+=== Dizajn po ugovoru (Design by Contract(TM)) [DbC]
+
+Dizajn po ugovoru je osmišljen od strane Eiffel Software kompanije i pojavio se
+prvobitno u Eiffel programskom jeziku.
+
+DbC je metoda pravljenja programa koja dizajnira komponente
+sistema tako da one međusobno sarađuju na bazi precizno definisanih ugovora.
+
+*Za softver je važno da bude pouzdan.*
+
+.Pouzdan softver podrazumeva:
+Tačnost:: Tačan softver radi ono što bi trebalo da radi i ništa pored toga.
+Robusnost:: Robustan softver radi prihvatljive stvari u slučajevima kada
+ne može da uradi ono što bi trebalo da uradi.
+
+Specifikacija onoga što bi softver trebalo da radi se naziva specifikacija softvera.
+Pouzdanost softvera zavisi od mogućnosti da specificiramo šta bi softver
+trebalo da radi, odnosno od specifikacije softvera.
+
+.Način na koji inženjeri izražavaju šta bi softver trebalo da radi:
+* Prirodnim jezikom
+* Opis formalnim sistemom baziranim na diskretnoj matematici
+
+Izražavanje prirodnim jezikom je jednostavno za razumevanje, međutim obično je
+nekompletno, dvosmisleno i kontradiktorno. Zbog toga, inženjeri pribegavaju
+matematičkom pismu koje nema dvosmislenost i kontradikcije. Na takav način se
+proizvodi veoma precizna specifikacija, međutim, većina inženjera nema
+matematičku pozadinu da koristi te alate. +
+Drugi problem, zajednički za oba načina izražavanja je sinhronizacija
+dokumenata. Specifikacija se nalazi u jednom dokumentu, a implementacija u
+drugom, što znači da se konstantno mora pružati posebna pažnja za sinhronizaciju ta dva dokumenta.
+
+Treći način, koji rešava gore pomenute probleme je Dizajn po ugovoru.
+
+DbC omogućava da napišemo dokumentaciju unapred i da jasno definišemo šta
+očekujemo da određena rutina uradi. Tako definisanu rutinu možemo koristiti uz
+sigurnost da ćemo uvek dobiti očekivani rezultat, bez potrebe da zalazimo u
+njenu implementaciju.
+
+==== Kako DbC radi?
+
+.Za svaku rutinu potrebno je iskazati:
+* Uslove koji moraju biti tačni pre nego što rutina može da radi kako treba (precondition).
+* Uslove koji će biti tačni nakon izvršavanja, ako je rutina radila kako treba (postcondition).
+
+*Primer:*
+
+Klasa BOJA sadrži informaciju o boji u 24-bitnom RGB obliku, odnosno za svaku boju (crvena, zelena, plava) po 8 bita.
+[source]
+----
+crvena: INTEGER
+zelena: INTEGER
+plava: INTEGER
+----
+Klasa takođe sadrži setter procedure.
+[source]
+----
+set_crvena (c: INTEGER)
+set_zelena (z: INTEGER)
+set_plava (p: INTEGER)
+----
+
+.Implementacija procedure set_crvena:
+[source]
+----
+set_crvena (c: INTEGER) is
+		-- Postavi crvenu boju na `c`
+	do
+		crvena := c
+	end
+----
+
+Ako instanciramo ovu klasu, možemo pozvati proceduru set_crvena i podesiti
+količinu crvene boje:
+[source]
+----
+bordo_boja: BOJA
+bordo_boja.set_crvena (96)
+----
+Međutim, ako se pozove `set_crvena (-5)` ili `set_crvena (320)`, instanca ulazi
+u nevalidno stanje, jer svaka komponenta 24-bitnog RGB zapisa mora sadržati
+vrednost u rasponu `0..255`. DbC nam omogućava da napravimo skup ugovora koje
+pozivalac procedure i ona sama moraju poštovati.
+
+.Implementacija procedure set_crvena upotrebom DbC-a:
+[source]
+----
+set_crvena (c: INTEGER) is
+		-- Postavi crvenu boju na `c`
+	require --<1>
+		0 <= c and c <= 255
+	do
+		crvena := c
+	ensure --<2>
+		crvena = c
+		zelena = old zelena --<3>
+		plava = old plava --<3>
+	end
+----
+<1> Ključna reč `require` započinje iskaz preduslova (precondition).
+<2> Ključna reč `ensure` započinje iskaz uslova koji mora biti validan nakon
+izvršavanja procedure (postcondition).
+<3> Garancija da procedura radi samo ono što bi trebalo da radi i ništa više.
+
+Sledeća tabela pokazuje dužnosti i beneficije klijenta (pozivalac procedure) i
+servera (objekat):
+
+.Dužnost i korist
+,===
+,Dužnost,Korist
+Klijent,Treba osigurati da `c` bude između 0 i 255,Crvena boja postavljena na `c`
+Server,Treba postaviti crvenu boju na vrednost `c`,Može se pretpostaviti da `c` ima validnu vrednost
+,===
+
+==== Šta ako se ugovor ne poštuje?
+
+Ugovor može biti prekršen i od strane klijenta i od strane servera.
+
+Ako se ugovor prekrši, znači da softver ne prati specifikaciju. Ako softver
+ne prati specifikaciju, znači da postoji greška (bug).
+
+Na taj način greške se mogu lako uočiti prilikom izvršavanja
+programa i brzo ukloniti.
+
+==== Uticaj DbC-a na performanse izvršavanja programa
+
+Uslovi ugovora ne treba nikad da budu prekršeni prilikom izvršavanja programa
+bez grešaka. Zbog toga, validnost ugovora se uglavnom proverava samo u debug
+modu prilikom razvijanja softvera i pronalaženja grešaka. Kasnije, prilikom
+distribucije, provera validnosti ugovora se gasi, kako bi se performanse dovele do najviše tačke.
+
+Na taj način inženjeri mogu koristiti DbC za pronalaženje grešaka bez uticaja
+na brzinu izvršavanja krajnjeg proizvoda.

@@ -1,0 +1,89 @@
+= Programski jezik Eiffel
+Bojan Stipić <bojanstipic@gmail.com>
+v1.0
+:doctype: book
+:lang: sr_Latn
+include::locale/attributes.adoc[]
+:toc:
+:icons: font
+// Embed images
+:data-uri:
+:source-highlighter: highlightjs
+:sectanchors:
+:sectnums:
+// Asciimath support
+:stem:
+
+:sectnums!:
+[colophon]
+== Kolofon
+Copyright (C) 2016  Bojan Stipić
+
+image::by-nd.svg[]
+
+This work is licensed under the Creative Commons Attribution-NoDerivatives 4.0
+International License. To view a copy of this license, visit
+http://creativecommons.org/licenses/by-nd/4.0/.
+
+[preface]
+== Uvod
+include::content/01-uvod.adoc[]
+
+:sectnums:
+== Eiffel metoda
+include::content/02-dbc.adoc[]
+
+include::content/03-cmd-query.adoc[]
+
+include::content/04-uniform-acc.adoc[]
+
+include::content/05-single-choice.adoc[]
+
+include::content/06-open-close.adoc[]
+
+include::content/07-option-operand.adoc[]
+
+== Eiffel programski jezik
+include::content/08-struktura.adoc[]
+
+include::content/09-tipovi-promenljive.adoc[]
+
+include::content/10-konstante.adoc[]
+
+include::content/11-operatori.adoc[]
+
+include::content/12-kontrola-toka.adoc[]
+
+include::content/13-nizovi.adoc[]
+
+include::content/14-rutine.adoc[]
+
+include::content/15-assigner.adoc[]
+
+include::content/16-klase.adoc[]
+
+include::content/17-nasledjivanje.adoc[]
+
+include::content/18-apstraktne-klase.adoc[]
+
+include::content/19-visestruko-nasledjivanje.adoc[]
+
+include::content/20-poredjenje.adoc[]
+
+include::content/21-pokusaj-dodele.adoc[]
+
+
+[appendix]
+== Zaključak
+include::content/22-zakljucak.adoc[]
+
+[appendix]
+== Literatura
+* Bertrand Meyer, Object Oriented Software Construction
+* "The Eiffel Compiler" (tecomp) an open source Eiffel compiler with documentation http://tecomp.sourceforge.net/
+* LibertyEiffel Wiki http://wiki.liberty-eiffel.org/index.php/Main_Page
+* Eiffel Community documentation https://www.eiffel.org/documentation
+* Eiffel.com online presentations https://www.eiffel.com/resources/presentations/
+* Eiffel: Analysis, Design and Programming Language, Standard ECMA-367, 2nd Edition / June 2006 http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-367.pdf
+* The Eiffel Library Kernel Standard, Vintage 95 https://archive.eiffel.com/doc/manuals/library/elks/book.fm.html
+* A comprehensive guide to Eiffel syntax http://eiffel-guide.com/

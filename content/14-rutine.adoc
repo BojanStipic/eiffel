@@ -1,0 +1,50 @@
+<<<
+
+=== Procedure i funkcije
+
+*Procedura* predstavlja rutinu koja nema povratnu vrednost. Definiše se na
+sledeći način:
+[source]
+----
+naziv (arg : TIP_1 ; arg_2 : TIP_2) is --<1>
+	require --<2>
+		… -- uslovi
+	local --<3>
+		… -- deklaracija lokalnih promenljivih
+	do --<4>
+		… -- instrukcije
+	ensure --<5>
+		… -- uslovi
+	end
+----
+<1> Proizvoljan, validan `naziv` funkcije, opciono praćen listom argumenata,
+praćen ključnom rečju `is`. Važno je primetiti da su argumenti razdvojeni
+znakom `;` pri definiciji, a znakom `,` pri pozivu procedure.
+<2> Preduslovi potrebni za uspešno izvršavanje procedure.
+<3> Deklaracija lokalnih promenljivih.
+<4> Telo procedure.
+<5> Uslovi koji treba da budu tačni ukoliko procedura radi kako treba.
+
+'''
+
+*Funkcija* predstavlja rutinu koja ima povratnu vrednost. Njena definicija
+je identična proceduri, osim zaglavlja:
+[source]
+----
+naziv (arg : TIP) : POVRATNA_VREDNOST is --<1>
+	…
+----
+<1> Tip povratne vrednosti se definiše u zaglavlju nakon dve tačke `:`, a
+pre ključne reči `is`.
+
+Sve funkcije imaju implicitno deklarisanu lokalnu promenljivu `Result`.
+Tip promenljive `Result` je tipa povratne vrednosti funkcije. Vrednost
+koja se dodeli promenljivoj `Result` biće vraćena pozivaocu funkcije kao
+povratna vrednost nakon izvršavanja funkcije.
+
+'''
+
+*Once svojstva* su specijalan oblik svojstava čije telo se izvršava
+samo jednom, po prvom pozivanju, a zatim se povratna vrednost čuva i vraća
+odmah pri svakom sledećem pozivu. Definišu se pomoću ključne reči `once`
+koja se piše umesto ključne reči `do`.

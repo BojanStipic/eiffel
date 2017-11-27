@@ -1,0 +1,19 @@
+=== Razdvajanje komanda-upit (command-query separation) [CQS]
+
+Princip razdvajanja komande od upita iskazuje da svaka metoda treba biti
+komanda koja vrši akciju, ili upit koji vraća podatak pozivaocu, ali
+ne i jedno i drugo. Drugim rečima, postavljanje pitanja ne treba da
+menja odgovor. Metoda može vratiti vrednost samo ukoliko njeno izvršavanje
+nema bočnih efekata.
+
+CQS je pogodan za korišćenje u kombinaciji sa DbC-om. U DbC-u, tvrdnje se
+smatraju anotacijama, a ne programskom logikom, tako da njihovo izvršavanje
+ne treba imati uticaj na program. Vodeći se CQS principom, bilo koja
+upit (query) funkcija se može koristiti u sklopu DbC tvrdnji.
+
+Standardni primer u objektnom programiranju bi bile `set` i `get` metode,
+gde su seteri prirodno komande, a geteri upiti.
+
+Problem ovog principa je što njegovim pridržavanjem ne možemo
+implementirati neke važne programerske idiome, kao što je `pop()` funkcija
+kod steka.

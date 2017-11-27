@@ -1,0 +1,145 @@
+=== Tipovi podataka i promenljive
+
+Sve promenljive moraju biti nekog tipa, nema netipiziranih promenljivih u
+Eiffel-u. Promenljiva tipa `T` se može vezati za objekat koji je
+u skladu sa `T` ili koji se konvertuje u `T`.
+
+Promenljive mogu biti reference na objekat (reference type) ili
+sam objekat—proširen tip (expanded type).
+Postoji nekoliko ključnih razlika između ova dva
+tipa:
+
+* Prošireni tipovi se prosleđuju po vrednosti, dok se reference prosleđuju
+po referenci.
+* Prošireni tipovi imaju semantiku kopiranja, odnosno njihova dodela
+prouzrokuje kopiranje same vrednosti, a ne dodeljivanje adrese.
+* Operator `=` kod referenci poredi da li one pokazuju na isti objekat, odnosno
+da li sadrže istu adresu, dok kod proširenih tipova ovaj operator poredi da li
+oni sadrže istu vrednost.
+
+Međutim, sintaksa pristupa svojstvima za oba tipa je identična, tako
+da ne treba voditi računa o eksplicitnom dereferenciranju kao što
+je to slučaj u programskim jezicima C i C++. Svim svojstvima se pristupa pomoću
+operatora `.` u oba slučaja i nema pokazivačke sintakse. Takođe, ne treba voditi
+računa o oslobađanju prostora na koje reference pokazuju s obzirom na to da
+Eiffel poseduje garbage collector koji to radi automatski.
+
+==== Fundamentalni tipovi podataka
+
+.Za sve fundamentalne tipove podataka postoji odgovarajuća klasa:
+* `BOOLEAN`
+* `CHARACTER`
+* `INTEGER`
+* `REAL`
+
+Ove klase su sinonim za:
+....
+CHARACTER: CHARACTER_8 ili CHARACTER_32
+INTEGER:   INTEGER_32  ili INTEGER_64
+NATURAL:   NATURAL_32  ili NATURAL_64
+REAL:      REAL_32     ili REAL_64
+....
+Korišćeni sinonimi se mogu izabrati prosleđivanjem
+odgovarajuće opcije kompajleru.
+
+Veličina se može i eksplicitno navesti upotrebom neke od sledećih klasa:
+
+* `CHARACTER_8`, `CHARACTER_32`
+* `INTEGER_8`, `INTEGER_16`, `INTEGER_32`, `INTEGER_64`,
+`NATURAL_8`, `NATURAL_16`, `NATURAL_32`, `NATURAL_64`
+* `REAL_32`, `REAL_64`
+
+Svi fundamentalni tipovi su prošireni. Na primer, definicija klase `INTEGER`
+izgleda ovako:
+[source]
+----
+expanded class INTEGER
+	…
+end
+----
+Zbog toga, za sve promenljive fundamentalnog tipa važi semantika kopiranja,
+prosleđivanje po vrednosti i poređenje po vrednosti.
+
+Pored toga što su proširenog tipa, takođe su i nepromenljivi tipovi (immutable).
+Ne postoji operacija poput `var.increment` ili `var++`. Jedini način na koji
+je moguće promeniti vrednost je dodeljivanjem nove vrednosti,
+na primer `var := var + 1`.
+
+Svi fundamentalni tipovi imaju početnu vrednost i ne moraju se inicijalizovati
+eksplicitno. Početne vrednosti su `0`, `False` i `karakter sa kodom 0`, za
+`INTEGER`/`REAL`, `BOOLEAN` i `CHARACTER` klase respektivno.
+
+<<<
+
+==== Deklaracija promenljivih
+
+.Promenljive se mogu deklarisati na neki od sledećih načina:
+[source]
+----
+id, … : TIP --<1>
+id, … : like id_2 --<2>
+id, … : TIP is vrednost --<3>
+id, … : GENERIČNI_TIP[TIP] --<4>
+id, … : expanded TIP --<5>
+----
+<1> Deklarisanje promenljive `id` tipa `TIP`.
+<2> Deklarisanje promenljive `id` istog tipa kao i `id_2`.
+<3> Deklarisanje promenljive `id` tipa `TIP` i postavljanje početne vrednosti.
+<4> Deklarisanje generičke klase.
+<5> Ukoliko je klasa `reference` tipa, ona se može promeniti u `expanded` tip
+prilikom deklaracije, dodavanjem ključne reči `expanded`.
+
+.Na primer:
+[source]
+----
+i, n : INTEGER
+motor : like vozilo
+broj: INTEGER is 0xDEADBEEF
+arr: ARRAY[INTEGER]
+bordo: expanded BOJA
+----
+
+==== Inicijalizacija promenljivih
+
+Sve promenljive se inicijalizuju automatski prilikom deklaracije.
+Na koji način se automatska deklaracija vrši, zavisi od tipa promenljive.
+
+Reference se uvek inicijalizuju na `Void` i da bi se mogle koristiti, potrebno
+je eksplicitno pozvati neki od konstruktora:
+[source]
+----
+create objekat.konstruktor --<1>
+----
+<1> Ključna reč `create` praćena objektom `objekat` koji želimo inicijalizovati
+nekim konstruktorom `konstruktor`.
+
+U slučaju da klasa nema nijedan eksplicitno definisan konstruktor, poziva se
+`default_create` procedura klase `ANY` koju sve klase implicitno
+nasleđuju.
+
+'''
+
+Prošireni tipovi treba da imaju jedan i samo jedan konstruktor bez parametara,
+koji se automatski poziva prilikom deklaracije i on je zadužen za
+inicijalizaciju. Ukoliko prošireni tip nema nijedan konstruktor, u tom slučaju
+se poziva `default_create` procedura klase `ANY` koju sve klase implicitno
+nasleđuju. Ukoliko nijedan od prethodno navedenih slučajeva nije ispunjen,
+dolazi do greške pri kompajliranju.
+
+Procedura `default_create` ima prazno telo, odnosno izgleda ovako:
+[source]
+----
+default_create is
+	do
+	end
+----
+U slučaju takve inicijalizacije, sva polja se inicijalizuju rekurzivno po sledećoj tabeli:
+
+.Inicijalizacija polja
+,===
+INTEGER, 0
+REAL, 0.0
+BOOLEAN, False
+CHARACTER, ASCII kod 0
+Reference, Void
+,===

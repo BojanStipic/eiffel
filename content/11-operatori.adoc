@@ -1,0 +1,52 @@
+=== Operatori
+
+Operatori su samo drugi nazivi (aliases) za nazive svojstava.
+[source]
+----
+a + b * c
+----
+je samo skraćeni zapis za:
+[source]
+----
+a.plus (b.product (c))
+----
+
+Alternativni nazivi se mogu definisati upotrebom ključne reči `alias`, na sledeći način:
+[source]
+----
+class INTEGER
+feature
+	…
+	plus alias "+" (other: like Current): like Current is
+		do
+			…
+		end
+
+	product alias "*" (other: like Current): like Current is
+		do
+			…
+		end
+	…
+end
+----
+
+Dostupni operatori sa definisanim pravilima prioriteta su:
+
+* Operator dodele `:=`
+* Aritmetički operatori `+`, `-`, `*`, `//`—celobrojno deljenje,
+`/`—realno deljenje, `^`—stepenovanje, `\\`—ostatak pri deljenju (moduo).
+* Relacioni operatori `<`, `\<=`, `>`, `>=`, `=`, `/=`, `~`, `/~`.
+* Bulovi binarni operatori `and`, `or`, `xor`, `not`.
+* Interval operator `..`.
+
+Takođe, mogu se definisati i proizvoljni novi operatori, kombinacijom bilo
+kojih znakova.
+
+.Na primer:
+[source]
+----
+-|->
+<-|-
+==>
+<==
+----

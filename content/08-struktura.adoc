@@ -1,0 +1,78 @@
+=== Struktura programa
+
+Tipičnu strukturu jednog programa napisanog u Eiffel programskom jeziku
+možemo videti kroz popularan primer "Zdravo svete!":
+
+.zdravo_svete.e
+[source]
+----
+class ZDRAVO_SVETE --<1>
+    -- Primer ispisa "Zdravo svete!" na standardni izlaz. --<2>
+
+create --<3>
+    main
+
+feature --<4>
+    main is--<5>
+        do --<6>
+            io.put_string("Zdravo svete!%N") --<7>
+        end --<6>
+
+end --<8>
+----
+<1> Ključna reč `class` praćena validnim proizvoljnim nazivom
+označava početak definicije klase. S obzirom da je Eiffel u potpunosti
+objektno orijentisan programski jezik, sav kod se mora nalaziti unutar klase.
+<2> Oznaka `--` označava početak komentara koji traje do kraja reda.
+<3> Ključna reč `create` označava početak oblasti u kojoj se navode
+nazivi procedura koje se mogu koristiti za kreiranje klase. Inicijalizatorske
+procedure su slične pojmu konstruktora u drugim programskim jezicima.
+Bitna razlika je da ove procedure mogu imati proizvoljan naziv i može ih biti
+proizvoljno mnogo.
+<4> Ključna reč `feature` označava deo klase u kojoj se definišu svojstva
+klase—atributi i rutine.
+<5> Početak definicije `main` procedure.
+<6> Implementacija procedure počinje ključnom rečju `do` i traje do `end`.
+<7> Ispis na standardni izlaz se vrši pozivanjem svojstva `io`. Sve klase
+u Eiffel-u mogu pozivati svojstvo `io` tipa `STD_FILES` jer je ono definisano
+u univerzalnoj klasi `ANY` koju sve ostale klase u sistemu implicitno nasleđuju.
+S obzirom da svojstvo `io` vraća objekat tipa `STD_FILES`, svojstva te klase
+se mogu pozivati upotrebom operatora `.`. Argument komande `put_string` je
+string koji treba ispisati na standardni izlaz.
+<8> Završetak definicije klase `ZDRAVO_SVETE`.
+
+Program sačuvan u izvršnu datoteku `zdravo_svete.e` može se kompajlirati
+pomoću LibertyEiffel kompajlera i pokrenuti na sledeći način:
+[source, bash]
+----
+se compile -o zdravo_svete zdravo_svete.e
+./zdravo_svete
+----
+
+.Izvršavanjem programa dobija se sledeći ispis:
+[source]
+----
+Zdravo svete!
+----
+
+Validan naziv klase može sadržati slova, brojeve i donju crtu `_`,
+ali mora počinjati slovom i ne sme biti isti kao neka od rezervisanih reči.
+
+.Lista rezervisanih reči:
+----
+agent     alias     all        and     as        assign    attribute
+check     class     convert    create  Current   debug     deferred
+do        else      elseif     end     ensure    expanded  export
+external  False     feature    from    frozen    if        implies
+inherit   inspect   invariant  like    local     loop      not
+note      obsolete  old        once    only      or        Precursor
+redefine  rename    require    rescue  Result    retry     select
+separate  then      True       TUPLE   undefine  until     variant
+Void      when      xor
+----
+
+Konvencija je da se svi nazivi klasa pišu velikim slovima, a reči razdvajaju
+donjom crtom. Rutine i atributi se pišu malim slovima, dok se konstante
+pišu velikim početnim slovom.
+Eiffel kompajler ne razlikuje velika i mala slova, tako da se `HELLO_WORLD`,
+`hello world`, `Hello_World`… odnose na istu klasu.

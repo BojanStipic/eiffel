@@ -1,0 +1,7 @@
+=== Razdvajanje opcija-operand (option-operand separation)
+
+Princip razdvajanja opcija-operand se odnosi na imperativno programiranje
+i iskazuje da argumenti operacije treba da sadrže samo operande, odnosno
+informacije potrebne za operaciju, a ne opcije koje predstavljaju
+dodatne informacije. Opcije treba da se postavljaju pozivanjem
+posebnih operacija.

@@ -1,0 +1,39 @@
+=== Pokušaj dodele
+
+Do sada smo videli da na osnovu polimorfizma, referenci tipa `A` ne
+mora uvek biti dodeljen objekat tipa `A`, već može i bilo koji
+objekat tipa `B` koji nasleđuje klasu `A`.
+
+[source]
+----
+ref_a : A
+ref_b : B
+… -- Inicijalizacija ref_b
+ref_a := ref_b --<1>
+----
+<1> Validno, pošto `B` nasleđuje `A`.
+
+Međutim, u nekim slučajevima potrebno je uraditi obrnutu dodelu
+[source]
+----
+ref_a : A
+ref_b : B
+… -- Inicijalizacija ref_b
+ref_a := ref_b
+ref_b := ref_a --<1>
+----
+<1> Greška pri kompajliranju, zato što `ref_a` ne mora pokazivati na objekat
+tipa `B`.
+
+U tom slučaju, moguće je koristiti operator "pokušaj dodele" `?=`.
+[source]
+----
+ref_b ?= ref_a --<1>
+----
+<1> U ovom slučaju, s obzirom da `ref_a` zaista pokazuje na objekat
+tipa `B`, dodela je uspešno izvršena. Ukoliko to ne bi bio slučaj, na `ref_b`
+bi bilo dodeljeno `Void`. Pomoću te činjenice, jednostavnom
+upotrebom `if-then-else` konstrukcije moguće je utvrditi da li je dodela
+uspešno izvršena.
+
+U drugim programskim jezicima ovo je poznato kao kastovanje (casting).

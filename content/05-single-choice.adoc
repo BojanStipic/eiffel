@@ -1,0 +1,21 @@
+=== Princip jedinstvenog izbora (single-choice principle) [SCP]
+
+[quote, Bertrand Meyer, Object Oriented Software Construction]
+____
+Kada softverski sistem mora podržavati skup alternativa, jedan i samo jedan
+modul u tom sistemu treba da zna o njegovoj iscrpnoj listi.
+____
+
+Princip je kasnije formulisan pod nazivom
+"Nemoj se ponavljati" (Don't repeat yourself) [DRY]:
+[quote, Andy Hunt i Dave Thomas, The Pragmatic Programmer: From Journeyman to Master]
+____
+Svaki deo nauke mora imati jedinstvenu, nedvosmislenu, autoritativnu
+reprezentaciju unutar sistema.
+____
+
+Kada se DRY princip primeni uspešno, modifikacija bilo kog pojedinačnog
+elementa u sistemu ne zahteva promenu u drugim logicki nepovezanim
+elementima. Takođe, svi elementi koji su logički povezani se menjaju
+na predvidiv i uniforman način. Ako jedna promena zahteva izmenu na više
+različitih mesta, onda se prekršava DRY princip.

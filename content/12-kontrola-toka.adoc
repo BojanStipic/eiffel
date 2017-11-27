@@ -1,0 +1,94 @@
+=== Iskazi i kontrola toka
+
+Iskaz kontrole toka omogućava odlučivanje o segmentu koda koji
+će se izvršiti u zavisnosti od Bulovog uslova, ili ponavljanje segmenta
+koda dok je uslov ispunjen.
+
+==== Uslovni iskazi
+
+Konstrukcija `*if-then-else*` kondicionala izgleda ovako:
+[source]
+----
+if uslov_1 then
+	… -- naredbe_1
+elseif uslov_2 then
+	… -- naredbe_2
+else
+	… -- naredbe_3
+end
+----
+gde su `elseif` i `else` grane opcione.
+
+'''
+
+Eiffel sadrži i `*inspect*` strukturu sličnu `switch-case` konstrukciji u mnogim jezicima.
+[source]
+----
+inspect promenljiva
+	when vrednost_1 then
+		… -- naredbe kada je `promenljiva` jednaka `vrednost_1`
+	when vrednost_2, vrednost_3 then
+		… -- naredbe kada je `promenljiva` jednaka `vrednost_2` ili `vrednost_3`
+	when vrednost_4..vrednost_n then
+		… -- naredbe kada je `promenljiva` između `vrednost_4` i `vrednost_n`
+	else
+		… -- naredbe u svim ostalim slučajevima
+end
+----
+
+
+==== Petlje
+
+Primer pojednostavljenog izgleda petlje koji podseća na `for` petlju
+u drugim programskim jezicima izgleda ovako:
+[source]
+----
+from --<1>
+	i := 0
+until --<2>
+	i >= 10
+loop --<3>
+	…
+	i := i + 1
+end
+----
+<1> Blok `from` služi za početnu inicijalizaciju promenljivih.
+<2> U bloku `until` se nalazi uslov koji se proverava u svakoj iteraciji petlje.
+*Petlja se izvršava sve dok Bulov uslov ne postane tačan*. Važno je primetiti
+da ovakva petlja ima *suprotnu* logiku od programskih jezika sa `for(;;)`
+petljom, jer se ona izvršava dok uslov nije ispunjen.
+<3> Blok `loop` sadrži instrukcije koje se izvršavaju u svakoj iteraciji.
+
+U petlji je moguće definisati ugovore koji moraju biti ispunjeni za vreme
+izvršavanja petlje, kako bi se lakše otkrile greške, kao što su
+beskonačne petlje.
+
+.Proširen oblik petlje sa ugovorima:
+[source]
+----
+from
+	… -- inicijalizacija
+invariant --<1>
+	… -- invarijante petlje
+variant --<2>
+	… -- varijante petlje
+until
+	… -- izlazni uslov
+loop
+	… -- instrukcije petlje
+end
+----
+<1> Promenljiva koja se ne sme menjati.
+<2> Promenljiva koja se mora smanjivati za minimalno jedan korak prilikom
+svake iteracije petlje.
+
+'''
+
+Drugi tip petlje se naziva `across` petlja koja funkcioniše slično `for-each`
+petljama u drugim programskim jezicima i izgleda ovako:
+[source]
+----
+across lista as iterator loop
+	…
+end
+----
