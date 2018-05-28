@@ -1,6 +1,6 @@
 = Programski jezik Eiffel
 Bojan Stipić <bojanstipic@gmail.com>
-v1.0
+v1.1
 :doctype: book
 :lang: sr_Latn
 include::locale/attributes.adoc[]
@@ -8,7 +8,8 @@ include::locale/attributes.adoc[]
 :icons: font
 // Embed images
 :data-uri:
-:source-highlighter: highlightjs
+ifndef::backend-pdf[:source-highlighter: highlightjs]
+ifdef::backend-pdf[:source-highlighter: rouge]
 :sectanchors:
 :sectnums:
 // Asciimath support

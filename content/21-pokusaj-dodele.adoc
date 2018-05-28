@@ -4,7 +4,7 @@ Do sada smo videli da na osnovu polimorfizma, referenci tipa `A` ne
 mora uvek biti dodeljen objekat tipa `A`, već može i bilo koji
 objekat tipa `B` koji nasleđuje klasu `A`.
 
-[source]
+[source,eiffel]
 ----
 ref_a : A
 ref_b : B
@@ -14,7 +14,7 @@ ref_a := ref_b --<1>
 <1> Validno, pošto `B` nasleđuje `A`.
 
 Međutim, u nekim slučajevima potrebno je uraditi obrnutu dodelu
-[source]
+[source,eiffel]
 ----
 ref_a : A
 ref_b : B
@@ -26,7 +26,7 @@ ref_b := ref_a --<1>
 tipa `B`.
 
 U tom slučaju, moguće je koristiti operator "pokušaj dodele" `?=`.
-[source]
+[source,eiffel]
 ----
 ref_b ?= ref_a --<1>
 ----

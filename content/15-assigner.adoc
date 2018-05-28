@@ -26,7 +26,7 @@ U programskom jeziku Eiffel, polja klase su "read-only" iz ugla klijenta.
 Da bi promenili vrednost polja, potrebno je koristiti setter procedure.
 
 .Na primer:
-[source]
+[source,eiffel]
 ----
 class
 	STUDENT
@@ -51,7 +51,7 @@ dodeljivačkih procedura. Kreator klase treba definisati takvu proceduru
 upotrebom ključne reči `assign`.
 
 .Na primer:
-[source]
+[source,eiffel]
 ----
 …
 	indeks: INTEGER assign set_indeks

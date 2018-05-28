@@ -51,7 +51,7 @@ Veličina se može i eksplicitno navesti upotrebom neke od sledećih klasa:
 
 Svi fundamentalni tipovi su prošireni. Na primer, definicija klase `INTEGER`
 izgleda ovako:
-[source]
+[source,eiffel]
 ----
 expanded class INTEGER
 	…
@@ -74,7 +74,7 @@ eksplicitno. Početne vrednosti su `0`, `False` i `karakter sa kodom 0`, za
 ==== Deklaracija promenljivih
 
 .Promenljive se mogu deklarisati na neki od sledećih načina:
-[source]
+[source,eiffel]
 ----
 id, … : TIP --<1>
 id, … : like id_2 --<2>
@@ -90,7 +90,7 @@ id, … : expanded TIP --<5>
 prilikom deklaracije, dodavanjem ključne reči `expanded`.
 
 .Na primer:
-[source]
+[source,eiffel]
 ----
 i, n : INTEGER
 motor : like vozilo
@@ -106,7 +106,7 @@ Na koji način se automatska deklaracija vrši, zavisi od tipa promenljive.
 
 Reference se uvek inicijalizuju na `Void` i da bi se mogle koristiti, potrebno
 je eksplicitno pozvati neki od konstruktora:
-[source]
+[source,eiffel]
 ----
 create objekat.konstruktor --<1>
 ----
@@ -127,7 +127,7 @@ nasleđuju. Ukoliko nijedan od prethodno navedenih slučajeva nije ispunjen,
 dolazi do greške pri kompajliranju.
 
 Procedura `default_create` ima prazno telo, odnosno izgleda ovako:
-[source]
+[source,eiffel]
 ----
 default_create is
 	do

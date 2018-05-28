@@ -1,18 +1,18 @@
 === Operatori
 
 Operatori su samo drugi nazivi (aliases) za nazive svojstava.
-[source]
+[source,eiffel]
 ----
 a + b * c
 ----
 je samo skraćeni zapis za:
-[source]
+[source,eiffel]
 ----
 a.plus (b.product (c))
 ----
 
 Alternativni nazivi se mogu definisati upotrebom ključne reči `alias`, na sledeći način:
-[source]
+[source,eiffel]
 ----
 class INTEGER
 feature

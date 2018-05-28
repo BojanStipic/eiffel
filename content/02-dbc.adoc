@@ -46,14 +46,14 @@ njenu implementaciju.
 *Primer:*
 
 Klasa BOJA sadrži informaciju o boji u 24-bitnom RGB obliku, odnosno za svaku boju (crvena, zelena, plava) po 8 bita.
-[source]
+[source,eiffel]
 ----
 crvena: INTEGER
 zelena: INTEGER
 plava: INTEGER
 ----
 Klasa takođe sadrži setter procedure.
-[source]
+[source,eiffel]
 ----
 set_crvena (c: INTEGER)
 set_zelena (z: INTEGER)
@@ -61,7 +61,7 @@ set_plava (p: INTEGER)
 ----
 
 .Implementacija procedure set_crvena:
-[source]
+[source,eiffel]
 ----
 set_crvena (c: INTEGER) is
 		-- Postavi crvenu boju na `c`
@@ -72,7 +72,7 @@ set_crvena (c: INTEGER) is
 
 Ako instanciramo ovu klasu, možemo pozvati proceduru set_crvena i podesiti
 količinu crvene boje:
-[source]
+[source,eiffel]
 ----
 bordo_boja: BOJA
 bordo_boja.set_crvena (96)
@@ -83,7 +83,7 @@ vrednost u rasponu `0..255`. DbC nam omogućava da napravimo skup ugovora koje
 pozivalac procedure i ona sama moraju poštovati.
 
 .Implementacija procedure set_crvena upotrebom DbC-a:
-[source]
+[source,eiffel]
 ----
 set_crvena (c: INTEGER) is
 		-- Postavi crvenu boju na `c`

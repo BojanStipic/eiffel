@@ -15,7 +15,7 @@ se izračunava različito za različite oblike. Klase `KVADRAT` i `TROUGAO` treb
 da promene implementaciju ovog svojstva.
 
 .kvadrat.e
-[source]
+[source,eiffel]
 ----
 class KVADRAT
 
@@ -46,7 +46,7 @@ implementacije unutar roditeljske klase. Ovo je moguće uraditi upotrebom
 promenljive `Precursor`.
 
 .Na primer:
-[source]
+[source,eiffel]
 ----
 …
 	redefinisana_rutina (i : INTEGER) is
@@ -62,7 +62,7 @@ Ključna reč `export` nam omogućava da promenimo vidljivost svojstva unutar
 izvedene klase.
 
 .Na primer:
-[source]
+[source,eiffel]
 ----
 class KVADRAT
 
@@ -84,7 +84,7 @@ njihove roditeljske klase. Odnosno, referenca na tip `RODITELJ` može
 pokazivati i na bilo koju izvedenu klasu iz roditelja.
 
 Prema tome, sledeći kod je validan ako i samo ako je `SIN` izveden od `OTAC`:
-[source]
+[source,eiffel]
 ----
 ref_otac : OTAC
 ref_sin : SIN

@@ -4,7 +4,7 @@
 
 *Procedura* predstavlja rutinu koja nema povratnu vrednost. Definiše se na
 sledeći način:
-[source]
+[source,eiffel]
 ----
 naziv (arg : TIP_1 ; arg_2 : TIP_2) is --<1>
 	require --<2>
@@ -29,7 +29,7 @@ znakom `;` pri definiciji, a znakom `,` pri pozivu procedure.
 
 *Funkcija* predstavlja rutinu koja ima povratnu vrednost. Njena definicija
 je identična proceduri, osim zaglavlja:
-[source]
+[source,eiffel]
 ----
 naziv (arg : TIP) : POVRATNA_VREDNOST is --<1>
 	…

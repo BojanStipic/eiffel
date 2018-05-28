@@ -11,6 +11,12 @@ gem install asciidoctor
 gem install --pre asciidoctor-pdf
 ```
 
+Za isticanje sintakse u PDF formatu instalirati `rouge`:
+
+```bash
+gem install rouge
+```
+
 Za generisanje rada u ostalim formatima koje podržava `asciidoctor` može se koristiti `-b` opcija:
 
 ```bash

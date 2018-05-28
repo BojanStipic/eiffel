@@ -8,7 +8,7 @@ koje se nalazi umesto `do` bloka.
 
 Ako se vratimo na primer sa oblicima, svojstvo `obim` unutar klase
 `OBLIK` bi moglo izgledati ovako:
-[source]
+[source,eiffel]
 ----
 deferred class OBLIK --<1>
 

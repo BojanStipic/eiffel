@@ -30,7 +30,7 @@ Rutina `is_equal` se nalazi u klasi `ANY` i ukoliko nije redefinisana od
 strane klase koju poredimo, njeno standardno ponašanje je da poredi sva
 polja oba objekta pomoću operatora `=`.
 Na primer, klasa `A` sadrži polja `x`, `y` i `z` i dve reference se uporede:
-[source]
+[source,eiffel]
 ----
 a_1, a_2 : A
 … -- Inicijalizacija
@@ -47,7 +47,7 @@ operator `=` kod referenci poredi samo adrese. U tom slučaju, potrebno
 je ručno redefinisati rutinu `is_equal` unutar klase.
 
 Na primer, redefinicija `is_equal` bi mogla izgledati ovako:
-[source]
+[source,eiffel]
 ----
 is_equal (other: A): BOOLEAN is
 	do

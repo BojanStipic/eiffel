@@ -7,7 +7,7 @@ koda dok je uslov ispunjen.
 ==== Uslovni iskazi
 
 Konstrukcija `*if-then-else*` kondicionala izgleda ovako:
-[source]
+[source,eiffel]
 ----
 if uslov_1 then
 	… -- naredbe_1
@@ -22,7 +22,7 @@ gde su `elseif` i `else` grane opcione.
 '''
 
 Eiffel sadrži i `*inspect*` strukturu sličnu `switch-case` konstrukciji u mnogim jezicima.
-[source]
+[source,eiffel]
 ----
 inspect promenljiva
 	when vrednost_1 then
@@ -41,7 +41,7 @@ end
 
 Primer pojednostavljenog izgleda petlje koji podseća na `for` petlju
 u drugim programskim jezicima izgleda ovako:
-[source]
+[source,eiffel]
 ----
 from --<1>
 	i := 0
@@ -64,7 +64,7 @@ izvršavanja petlje, kako bi se lakše otkrile greške, kao što su
 beskonačne petlje.
 
 .Proširen oblik petlje sa ugovorima:
-[source]
+[source,eiffel]
 ----
 from
 	… -- inicijalizacija
@@ -86,7 +86,7 @@ svake iteracije petlje.
 
 Drugi tip petlje se naziva `across` petlja koja funkcioniše slično `for-each`
 petljama u drugim programskim jezicima i izgleda ovako:
-[source]
+[source,eiffel]
 ----
 across lista as iterator loop
 	…

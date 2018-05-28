@@ -4,7 +4,7 @@ Tipičnu strukturu jednog programa napisanog u Eiffel programskom jeziku
 možemo videti kroz popularan primer "Zdravo svete!":
 
 .zdravo_svete.e
-[source]
+[source,eiffel]
 ----
 class ZDRAVO_SVETE --<1>
     -- Primer ispisa "Zdravo svete!" na standardni izlaz. --<2>

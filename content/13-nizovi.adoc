@@ -7,6 +7,7 @@ ostalo, nizovi su samo obična generična klasa sa svojstvom `item` koje može
 imati alternativni naziv `[]`.
 
 Zavirujući u izvorni kod kompajlera—"The Eiffel Compiler" tecomp, možemo videti klasu ARRAY u datoteci `array.e` čiji deo deklaracije izgleda ovako:
+[source,eiffel]
 ----
 class ARRAY[G] … create make … feature …
 
@@ -48,7 +49,7 @@ i LibertyEiffel, nemaju implementiran operator `[]`, već infiksni operator `@`.
 
 S obzirom da je `ARRAY` generička klasa sa generičkim parametrom `G`, ona se
 može deklarisati sa bilo kojim tipom. Na primer:
-[source]
+[source,eiffel]
 ----
 arr_int : ARRAY[INTEGER]
 arr_char : ARRAY[CHARACTER]
@@ -57,7 +58,7 @@ matrix : ARRAY[ARRAY[INTEGER]]
 
 Za inicijalizaciju niza možemo koristiti `make` konstruktor.
 Na primer:
-[source]
+[source,eiffel]
 ----
 create arr_int.make ( 0, 9 ) --<1>
 ----
@@ -66,7 +67,7 @@ create arr_int.make ( 0, 9 ) --<1>
 U programskim jezicima kao što je C, elementi se indeksiraju od nule zato
 što je C modelovan po uzoru na asemblerski jezik gde indeksi predstavljaju offset. U Eiffel-u, pošto je niz klasa, indeksi mogu biti arbitrarni. Na primer,
 niz se može inicijalizovati na neki od sledećih načina:
-[source]
+[source,eiffel]
 ----
 create arr_int.make ( 0, 9 )
 create arr_int.make ( 1, 10 )
@@ -76,7 +77,7 @@ create arr_20_vek.make ( 1901, 2000 ) --<1>
 
 Svojstvo `item` poseduje alternativni naziv `[]`, pa se elementu može pristupiti
 skraćenim zapisom.
-[source]
+[source,eiffel]
 ----
 arr_int.item(1)
 arr[1]

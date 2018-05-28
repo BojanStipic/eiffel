@@ -3,7 +3,7 @@
 === Klase
 
 .Opšti kostur klase:
-[source]
+[source,eiffel]
 ----
 class NAZIV
 

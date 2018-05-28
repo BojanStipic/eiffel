@@ -15,7 +15,7 @@ treba biti pozvano ako se napiše `obj_c : C; obj_c.foo`?
 U Eiffel-u, ovaj problem se može rešiti na nekoliko načina.
 
 .Pomoću redefinisanja:
-[source]
+[source,eiffel]
 ----
 class C
 
@@ -42,7 +42,7 @@ Na ovaj način, klasa `C` je spojila oba svojstva `foo` u jedno, tako da više
 ne postoje dva svojstva sa istim nazivom.
 
 .Pomoću preimenovanja:
-[source]
+[source,eiffel]
 ----
 class C
 
@@ -60,7 +60,7 @@ end
 Sada oba svojstva imaju jedinstven naziv i nema sukoba.
 
 .Pomoću brisanja:
-[source]
+[source,eiffel]
 ----
 class C
 
@@ -103,7 +103,7 @@ Svojstvo koje je dvostruko nasleđeno biće kopija ako je preimenovano.
 Dakle, ova dilema se rešava jednostavnom upotrebom `rename` iskaza.
 
 Međutim, problem ostaje kod polimofrizma ukoliko dođe do kopije nekog svojstva.
-[source]
+[source,eiffel]
 ----
 root_ref : ROOT
 c_ref : C
@@ -117,7 +117,7 @@ root_ref.foo --<1>
 Ovaj problem se može rešiti upotrebom `select` iskaza.
 
 .a.e
-[source]
+[source,eiffel]
 ----
 class A
 
@@ -131,7 +131,7 @@ inherit
 ----
 
 .b.e
-[source]
+[source,eiffel]
 ----
 class B
 
@@ -144,7 +144,7 @@ inherit
 ----
 
 .c.e
-[source]
+[source,eiffel]
 ----
 class C
 
@@ -169,7 +169,7 @@ ne bi došlo do sukoba naziva.
 
 Nakon preimenovanja, moguće je pozvati i jednu i drugu implementaciju,
 s obzirom da one imaju različite nazive.
-[source]
+[source,eiffel]
 ----
 c_ref : C
 create c_ref
