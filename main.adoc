@@ -2,6 +2,7 @@
 Bojan Stipić <bojanstipic@gmail.com>
 v1.1
 :doctype: book
+:pdf-page-margin: [0.39in, 0.39in, 0.39in, 0.98in]
 :lang: sr_Latn
 include::locale/attributes.adoc[]
 :toc:
