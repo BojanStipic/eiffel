@@ -82,7 +82,7 @@ Na ovaj način se nasleđuje samo `foo` iz klase `A`.
 Problem dijamanta nastaje ukoliko klasa `C` nasledi klase `A` i `B` koje
 imaju zajedničkog roditelja `ROOT`.
 
-image::pics/02-dijamant.png[]
+image::02-dijamant.png[]
 
 ////
 @startuml

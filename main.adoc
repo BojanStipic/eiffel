@@ -15,6 +15,7 @@ ifdef::backend-pdf[:source-highlighter: rouge]
 :sectnums:
 // Asciimath support
 :stem:
+:imagesdir: img
 
 :sectnums!:
 [colophon]

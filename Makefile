@@ -1,5 +1,5 @@
 TARGET = Eiffel
-SRC = main.adoc content/* pics/* locale/*
+SRC = main.adoc content/* img/* locale/*
 .PHONY: all clean
 
 all: ${TARGET}.pdf ${TARGET}.html

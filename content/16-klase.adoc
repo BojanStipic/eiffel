@@ -44,7 +44,7 @@ klasa nema `inherit` blok, ova klasa se implicitno nasleđuje.
 
 Primer hijerarhije klasa u Eiffel-u:
 
-image::pics/01-hijerarhija.png[]
+image::01-hijerarhija.png[]
 
 ////
 @startuml
