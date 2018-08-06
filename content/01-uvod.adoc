@@ -40,8 +40,8 @@ Postoji više implementacija programskog jezika Eiffel:
 "The Eiffel Compiler" tecomp—implementira prvu verziju ISO standarda
 (ECMA-367, ISO/IEC 25436). Kompajler više nije u aktivnom razvoju.
 
-Gobo Eiffel—koristi manje striktnu, MIT licencu, pa se može koristiti i za
-komercijalni vlasnički softver. Cilj projekta je praćenje ISO standarda u što
+Gobo Eiffel—dostupan pod permisivnom MIT Expat licencom, pa se može koristiti i za
+razvoj vlasničkog softvera. Cilj projekta je praćenje ISO standarda u što
 većoj meri.
 
 SmartEiffel—deo GNU projekta. Prevodi kod u C ili Java bytecode, pa se može
@@ -49,12 +49,12 @@ koristiti za pisanje programa koji mogu raditi na bilo kojoj platformi sa ANSI C
 kompajlerom ili Java virtuelnom mašinom. Ne implementira standard u potpunosti.
 Razvoj je zaustavljen 2005. godine.
 
-LibertyEiffel—fork gore pomenutog SmartEiffel kompajlera, nastavlja dalji
+LibertyEiffel—fork gore pomenutog SmartEiffel kompajlera. Nastavlja dalji
 razvoj i implementaciju novog ISO standarda. Trenutno je oficijalni GNU
 kompajler za Eiffel jezik.
 
 Eiffel Studio (Integrisano razvojno okruženje)—kombinacija više alata
-integrisanih u jedan korisnički interfejs. Dostupan u GPL i komercijalnoj
+integrisanih u jedan korisnički interfejs. Dostupan u GPL i vlasničkoj
 licenci.
 
 '''
@@ -62,11 +62,11 @@ licenci.
 Za potrebe ovog rada i za kompajliranje svih primera koristićemo LibertyEiffel.
 
 LibretyEiffel se može preuzeti sa web stranice http://www.liberty-eiffel.org/ u
-obliku tar arhive, a zatim kompajlirati na bilo kojem Linux
-ili Unix-like sistemu koji poseduje gcc kompajler na sledeći način:
+obliku `tar` arhive, a zatim kompajlirati na bilo kojem GNU
+ili Unix-like sistemu koji poseduje `gcc` kompajler na sledeći način:
 [source,bash]
 ----
-tar -zxvf <release>.tar.gz
+tar -xvf <release>.tar.gz
 cd <release>
 ./install.sh -bootstrap
 ----
