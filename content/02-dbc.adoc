@@ -1,10 +1,13 @@
 === Dizajn po ugovoru (Design by Contract(TM)) [DbC]
 
-Dizajn po ugovoru je osmišljen od strane Eiffel Software kompanije i pojavio se
-prvobitno u Eiffel programskom jeziku.
+DbC je pristup dizajniranju softvera kod kojeg komponente
+sistema međusobno sarađuju na bazi precizno definisanih ugovora.
 
-DbC je metoda pravljenja programa koja dizajnira komponente
-sistema tako da one međusobno sarađuju na bazi precizno definisanih ugovora.
+DbC propisuje pisanje formalne i precizne specifikacije softverskih komponenti,
+koju je moguće validirati.
+
+.Dizajn po ugovoru (Fabuio, Wikimedia Commons; licenca: Creative Commons CC0)
+image::dbc.png[DbC,300,300]
 
 *Za softver je važno da bude pouzdan.*
 
@@ -32,16 +35,42 @@ drugom, što znači da se konstantno mora pružati posebna pažnja za sinhroniza
 
 Treći način, koji rešava gore pomenute probleme je Dizajn po ugovoru.
 
-DbC omogućava da napišemo dokumentaciju unapred i da jasno definišemo šta
-očekujemo da određena rutina uradi. Tako definisanu rutinu možemo koristiti uz
-sigurnost da ćemo uvek dobiti očekivani rezultat, bez potrebe da zalazimo u
-njenu implementaciju.
+Ugovor specificira na koji način komponente sistema mogu međusobno komunicirati.
+Na osnovu ugovora, svaka komponenta dobija svoje dužnosti i beneficije.
+
+Po DbC principu, ugovori treba da se pišu u procesu specifikacije softvera,
+odnosno treba da prethode samoj implementaciji.
+
+Čak i u slučajevima gde sintaksa programskog jezika ne dozvoljava pisanje ugovora,
+moguće ih je pisati u vidu komentara, koji se validiraju od strane specijalizovanih
+test alata.
+
+==== Šta obuhvata ugovor?
+
+Pojam ugovora se definiše na nivou same rutine.
+
+.Ugovor može sadržati:
+* Prihvatljive i neprihvatljive ulazne vrednosti i tipove, kao i njihovo značenje
+* Povratne vrednosti i tipove, kao i njihovo značenje
+* Greške i izuzeci koji mogu nastati
+* Bočni efekti
+* Preduslovi
+* Postuslovi
+* Invarijante
+* Garancija o performansama (potrebno vreme ili zauzeće memorije)
+
+//
+
+Preduslovi (preconditions)::
+Uslovi koji moraju biti ispunjeni pre poziva rutine, kako bi ona mogla da radi ispravno.
+Postuslovi (postconditions)::
+Uslovi koji će biti tačni nakon izvršavanja, ako je rutina radila kako treba.
+Invarijante (invariants)::
+Invarijanta klase garantuje da će se klasa nalaziti uvek u validnom stanju.
+Odnosno, nakon izvršenja bilo kog svojstva, stanje klase će biti održano u granicama specificirane tolerancije.
+
 
 ==== Kako DbC radi?
-
-.Za svaku rutinu potrebno je iskazati:
-* Uslove koji moraju biti tačni pre nego što rutina može da radi kako treba (precondition).
-* Uslove koji će biti tačni nakon izvršavanja, ako je rutina radila kako treba (postcondition).
 
 *Primer:*
 
@@ -70,7 +99,7 @@ set_crvena (c: INTEGER) is
 	end
 ----
 
-Ako instanciramo ovu klasu, možemo pozvati proceduru set_crvena i podesiti
+Klasu je moguće instancirati, a zatim pozvati proceduru set_crvena i podesiti
 količinu crvene boje:
 [source,eiffel]
 ----
@@ -79,8 +108,24 @@ bordo_boja.set_crvena (96)
 ----
 Međutim, ako se pozove `set_crvena (-5)` ili `set_crvena (320)`, instanca ulazi
 u nevalidno stanje, jer svaka komponenta 24-bitnog RGB zapisa mora sadržati
-vrednost u rasponu `0..255`. DbC nam omogućava da napravimo skup ugovora koje
-pozivalac procedure i ona sama moraju poštovati.
+vrednost u rasponu `0..255`.
+
+Jedan konvencionalni pristup rešenju bi bio pisanje inline dokumentacije u vidu komentara.
+Međutim, komentar ne predstavlja nikakvu semantiku za sam računar.
+Ne postoji način da se prilikom izvršavanja programa validira da li je
+procedura zaista pozvana u skladu sa specifikacijom.
+
+Validaciju je moguće "ručno" napisati u samom telu procedure.
+U tom slučaju nastaje novi problem—sinhronizacija dokumentacije sa implementiranom validacijom.
+S obzirom da imamo ponavljanje informacija, navedeno rešenje takođe nije u skladu sa principom "Ne ponavljaj se" (Don't repeat yourself) [DRY].
+
+DbC nam omogućava da napravimo skup ugovora koje
+pozivalac procedure i procedura sama moraju poštovati.
+
+.DbC specifikacija ujedno predstavlja:
+* Specifikaciju zapisanu na formalan način, namenjenu programeru
+* Specifikaciju koju računar može da razume i validira
+
 
 .Implementacija procedure set_crvena upotrebom DbC-a:
 [source,eiffel]
@@ -102,19 +147,29 @@ set_crvena (c: INTEGER) is
 izvršavanja procedure (postcondition).
 <3> Garancija da procedura radi samo ono što bi trebalo da radi i ništa više.
 
+.Na ovaj način dobavljač klijentu govori sledeće:
+--
+"Ne zovi me ako nisi apsolutno siguran da je c između 0 i 255."
+-- Preduslov
+
+"Ako me pozoveš na odgovarajući način obećavam da ću za tebe postaviti crvenu boju na c,
+a ostale boje neću dotaći."
+-- Postuslov
+--
+
 Sledeća tabela pokazuje dužnosti i beneficije klijenta (pozivalac procedure) i
-servera (objekat):
+dobavljača (objekat nad kojim je pozvana procedura):
 
 .Dužnost i korist
 ,===
-,Dužnost,Korist
-Klijent,Treba osigurati da `c` bude između 0 i 255,Crvena boja postavljena na `c`
-Server,Treba postaviti crvenu boju na vrednost `c`,Može se pretpostaviti da `c` ima validnu vrednost
+, Dužnost , Korist
+Klijent , Treba osigurati da `c` bude između `0` i `255` , Crvena boja postavljena na `c`
+Dobavljač , Treba postaviti crvenu boju na vrednost `c` , Može pretpostaviti da `c` ima validnu vrednost
 ,===
 
 ==== Šta ako se ugovor ne poštuje?
 
-Ugovor može biti prekršen i od strane klijenta i od strane servera.
+Ugovor može biti prekršen i od strane klijenta i od strane dobavljača.
 
 Ako se ugovor prekrši, znači da softver ne prati specifikaciju. Ako softver
 ne prati specifikaciju, znači da postoji greška (bug).
