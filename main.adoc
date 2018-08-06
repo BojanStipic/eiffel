@@ -1,4 +1,4 @@
-= Programski jezik Eiffel
+= Eiffel metoda programiranja i programski jezik
 Bojan Stipić <bojanstipic@gmail.com>
 v1.1
 :doctype: book
@@ -18,15 +18,15 @@ ifdef::backend-pdf[:source-highlighter: rouge]
 :imagesdir: img
 
 :sectnums!:
-[colophon]
-== Kolofon
-Copyright (C) 2016  Bojan Stipić
-
-image::by-nd.svg[]
-
-This work is licensed under the Creative Commons Attribution-NoDerivatives 4.0
-International License. To view a copy of this license, visit
-http://creativecommons.org/licenses/by-nd/4.0/.
+// [colophon]
+// == Kolofon
+// Copyright (C) 2016, 2018  Bojan Stipić
+//
+// image::by-nd.svg[]
+//
+// This work is licensed under the Creative Commons Attribution-NoDerivatives 4.0
+// International License. To view a copy of this license, visit
+// http://creativecommons.org/licenses/by-nd/4.0/.
 
 [preface]
 == Uvod
