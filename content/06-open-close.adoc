@@ -12,26 +12,44 @@ ____
 Na primer, trebalo bi da bude moguće dodavanje polja strukturi podataka
 koju sadrži, ili dodavanje novih elemenata skupu funkcija koje izvršava.
 * Modul se smatra zatvorenim ako je dostupan za korišćenje drugim modulima.
+Pod ovim se pretpostavlja da modul ima dobro definisan, stabilan opis (interfejs).
 ____
 
-Takva, gore navedena definicija, zahteva da dodavanje polja i funkcija
-postojećoj biblioteci prouzrokuje potrebu da se promene i svi programi koji
-zavise od te biblioteke.
+Potreba da modul bude u isto vreme otvoren i zatvoren proizilazi iz različitih razloga.
+Otvorenost je prirodna potreba programera, s obzirom da je gotovo nemoguće
+predvideti sve elemente koji će biti potrebni u životnom veku modula.
+Sa druge strane, postoji i potreba za zatvaranjem modula, kako bi se on mogao upotrebiti.
+Kada modul ne bi bio zatvaran, dok nismo apsolutno sigurni da je kompletan, nijedan
+program sačinjen iz više modula ne bi bio završen--
+svi bi čekali da neko drugi završi svoj posao.
 
-Meyer-ovo preporučeno rešenje za ovu dilemu se oslanjalo na koncept nasleđivanja:
+Tradicionalnim tehnikama, dva gore navedena cilja nisu kompatibilna.
+Ili je modul otvoren za promenu, ili je zatvoren i svaki pokušaj modifikacije
+iziskuje promene u modulima koji zavise od tog modula.
+
+Meyer-ovo preporučeno rešenje za ovu dilemu se oslanja na koncept nasleđivanja:
 [quote, Bertrand Meyer, Object Oriented Software Construction]
 ____
 Klasa je zatvorena, zato što se može kompajlirati, čuvati u biblioteci,
 koristiti kao početna tačka za upoređivanje i koristiti od strane klijentskih
 klasa. Takođe, ona je i otvorena, zato što je bilo koja nova klasa može
-koristiti kao bazu, dodavajući nove karakteristike.
+koristiti kao bazu, dodajući nove karakteristike.
 ____
 
-'''
+Kod objektno orijentisanog softvera, nasleđivanje omogućava da definišemo novi modul `A'`
+koji nasleđuje `A`.
+U modulu `A'` je tada potrebno navesti samo proširenja, odnosno razlike.
 
-Tokom 90-ih godina otvoreno-zatvoreni princip je popularno redefinisan, tako da danas postoji i druga definicija ovog termina koja se odnosi na polimorfizam i
-apstraktne interfejse.
-
-Polimorfizam omogućava klasi da pored otvorenosti za proširivanje, omogući i
-otvorenost za promenu implementacije. Primenom apstraktnih klasa i interfejsa,
-klijent može da poziva metode bez poznavanja njene tačne implementacije.
+.Primer
+[source,eiffel]
+----
+class A' inherit
+	A redefine f, g, … end
+feature
+	f is …
+	g is …
+	…
+	u is …
+	…
+end
+----
