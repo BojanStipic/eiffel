@@ -5,3 +5,17 @@ i iskazuje da argumenti operacije treba da sadrže samo operande, odnosno
 informacije potrebne za operaciju, a ne opcije koje predstavljaju
 dodatne informacije. Opcije treba da se postavljaju pozivanjem
 posebnih operacija.
+
+.Na primer, klasa `Dokument` sadrži operaciju `štampaj`:
+[source]
+----
+moj_dokument.štampaj (naziv_štampača, veličina_papira, rezolucija_štampe)
+----
+
+.U navedenom primeru, svi parametri se mogu zameniti podrazumevanim vrednostima:
+* Ukoliko se ne navede `naziv_štampača` može se izabrati podrazumevani štampač.
+* Ukoliko se ne navede `veličina_papira`, može se odabrati `A4` u većem delu sveta.
+* Ukoliko se ne navede `rezolucija_štampe`, može se odabrati razumna vrednost od `600` tačaka po kvadratnom inču.
+
+Dakle, svi gore navedeni parametri su *opcije* i potrebno ih je postaviti u zasebnim operacijama.
+U ovom primeru, jedini *operand* je implicitni operand `moj_dokument`.
