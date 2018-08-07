@@ -6,14 +6,62 @@ ne i jedno i drugo. Drugim rečima, postavljanje pitanja ne treba da
 menja odgovor. Metoda može vratiti vrednost samo ukoliko njeno izvršavanje
 nema bočnih efekata.
 
-CQS je pogodan za korišćenje u kombinaciji sa DbC-om. U DbC-u, tvrdnje se
+Bočni efekti u sklopu upita onemogućavaju osnovna matematička svojstva,
+koja pomažu logičkom rezonovanju.
+Matematika je bez promena: ona govori o apstraktnim objektima i definiše operacije nad njima,
+ali te operacije ne menjaju objekte.
+Na primer, izračunavanjem `√2` ne menja se broj `2`.
+
+Prednost CQS principa se ogleda u tome što je dovoljno pogledati zaglavlje metode
+kako bi se utvrdilo da li ona proizvodi bočne efekte.
+Ukoliko postoji povratna vrednost, metoda sigurno nema bočnih efekata.
+
+CQS je pogodan za korišćenje u kombinaciji sa DbC-om. U DbC-u, ugovori se
 smatraju anotacijama, a ne programskom logikom, tako da njihovo izvršavanje
-ne treba imati uticaj na program. Vodeći se CQS principom, bilo koja
-upit (query) funkcija se može koristiti u sklopu DbC tvrdnji.
+ne treba imati uticaj na program. Vodeći se CQS principom, bilo koji
+upit (query) se može koristiti u sklopu DbC ugovora.
+
+==== Tipovi bočnih efekata
+
+Osnovna operacija koja može promeniti objekat je naredba dodele `a := b` (ili pokušaj dodele `a ?= b`, ili konstrukcija `create a`).
+
+* Ukoliko je `a` atribut klase, tada se može reći da postoji bočni efekat.
+* Ukoliko je `a` lokalna promenljiva, njena promena ne utiče na stanje objekta, pa se to ne smatra bočnim efektom.
+* Slično, ukoliko je `a` povratna vrednost metode, njena promena služi samo kao pomoć pri izračunavanju rezultata.
+
+'''
 
 Standardni primer u objektnom programiranju bi bile `set` i `get` metode,
 gde su seteri prirodno komande, a geteri upiti.
 
 Problem ovog principa je što njegovim pridržavanjem ne možemo
-implementirati neke važne programerske idiome, kao što je `pop()` funkcija
+implementirati neke važne programerske idiome, kao što je `pop()` metoda
 kod steka.
+Međutim, CQS rešava probleme nastale od strane neočekivanih bočnih efekata, kao što se može videti u sledećim primerima.
+
+==== Implementacija steka
+
+Tradicionalna implementacija steka sadrži metodu `pop()`.
+Povratna vrednost ove metode daje element koji se nalazio na vrhu steka.
+Pored toga, metoda ima bočni efekat--element se takođe briše sa steka.
+
+Vodeći se CQS principom, navedena funkcionalnost bi se mogla implementirati pomoću dve nezavisne metode.
+Metoda `remove` koja "skida" element sa vrha steka.
+Metoda `item` koja vraća element koji se nalazi na vrhu steka.
+
+Na ovaj način, više uzastopnih poziva `item` metode će uvek vratiti isti element.
+Izraz `pop() + pop()` i izraz `pop() * 2` će imati isti rezultat, što odgovara očekivanjima na osnovu znanja iz matematike.
+
+==== Čitanje iz fajla
+
+Čitanje iz fajla u većini drugih programskih jezika funkcioniše pomoću funkcija poput `getint`.
+Efekat ove funkcije je da pročita ulazni element i vrati njegovu vrednost.
+Međutim, postoji dodatni efekat—pomera se pozicija za čitanje.
+
+Pozivom metode `getint` dva puta, dobija se različita vrednost.
+
+.Vodeći se CQS principom, potrebne su dve funkcije:
+. Funkcija `advance` koja pomera poziciju u fajlu
+. Funkcija `last_integer` koja vraća poslednji pročitani element
+
+Više uzastopnih poziva `last_integer` će uvek vratiti istu vrednost.
