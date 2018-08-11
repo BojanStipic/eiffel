@@ -26,7 +26,7 @@ pomoću Eiffel metodologije.
 * Razdvajanje opcija-operand (option-operand separation)
 
 .Softver napisan u Eiffel programskom jeziku je:
-Pouzdan:: Bagovi lako uočljivi primenom metode Dizajn po ugovoru(TM).
+Pouzdan:: Greške lako uočljive primenom metode Dizajn po ugovoru(TM).
 Za višekratnu upotrebu:: Objektno orijentisan način programiranja omogućava kod
 koji se može iznova koristiti.
 Proširiv:: Postojeći programi se lako proširuju i nadograđuju.

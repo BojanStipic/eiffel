@@ -7,7 +7,7 @@ DbC propisuje pisanje formalne i precizne specifikacije softverskih komponenti,
 koju je moguće validirati.
 
 .Dizajn po ugovoru (Fabuio, Wikimedia Commons; licenca: Creative Commons CC0)
-image::dbc.png[DbC,300,300]
+image::dbc.png[DbC,300,300,align="center"]
 
 *Za softver je važno da bude pouzdan.*
 
@@ -161,11 +161,12 @@ Sledeća tabela pokazuje dužnosti i beneficije klijenta (pozivalac procedure) i
 dobavljača (objekat nad kojim je pozvana procedura):
 
 .Dužnost i korist
-,===
-, Dužnost , Korist
-Klijent , Treba osigurati da `c` bude između `0` i `255` , Crvena boja postavljena na `c`
-Dobavljač , Treba postaviti crvenu boju na vrednost `c` , Može pretpostaviti da `c` ima validnu vrednost
-,===
+|===
+| | Dužnost | Korist
+
+| *Klijent* | Treba osigurati da `c` bude između `0` i `255` | Crvena boja postavljena na `c`
+| *Dobavljač* | Treba postaviti crvenu boju na vrednost `c` | Može pretpostaviti da `c` ima validnu vrednost
+|===
 
 ==== Šta ako se ugovor ne poštuje?
 

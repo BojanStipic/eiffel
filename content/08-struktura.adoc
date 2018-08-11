@@ -75,4 +75,4 @@ Konvencija je da se svi nazivi klasa pišu velikim slovima, a reči razdvajaju
 donjom crtom. Rutine i atributi se pišu malim slovima, dok se konstante
 pišu velikim početnim slovom.
 Eiffel kompajler ne razlikuje velika i mala slova, tako da se `HELLO_WORLD`,
-`hello world`, `Hello_World`… odnose na istu klasu.
+`hello_world`, `Hello_World`… odnose na istu klasu.

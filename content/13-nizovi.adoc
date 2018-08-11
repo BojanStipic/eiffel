@@ -85,4 +85,4 @@ arr[1]
 Gore navedene linije koda su ekvivalentne i obe pristupaju elementu pod rednim
 brojem `1`.
 
-WARNING: Nije moguće izvršiti dodelu vrednosti kao `arr[1] := 7`. Ovo se može omogućiti upotrebom dodeljivačkih procedura. Za detaljnije objašnjenje pogledati sekciju <<assigner, 2.8. Dodeljivačke procedure (assigner procedures) [strana 21]>>
+WARNING: Nije moguće izvršiti dodelu vrednosti kao `arr[1] := 7`. Ovo se može omogućiti upotrebom dodeljivačkih procedura. Za detaljnije objašnjenje pogledati: <<assigner>>

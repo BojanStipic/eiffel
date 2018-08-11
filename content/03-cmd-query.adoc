@@ -18,7 +18,7 @@ Ukoliko postoji povratna vrednost, metoda sigurno nema bočnih efekata.
 
 CQS je pogodan za korišćenje u kombinaciji sa DbC-om. U DbC-u, ugovori se
 smatraju anotacijama, a ne programskom logikom, tako da njihovo izvršavanje
-ne treba imati uticaj na program. Vodeći se CQS principom, bilo koji
+ne treba da ima uticaj na program. Vodeći se CQS principom, bilo koji
 upit (query) se može koristiti u sklopu DbC ugovora.
 
 ==== Tipovi bočnih efekata
