@@ -13,9 +13,11 @@ ifndef::backend-pdf[:source-highlighter: highlightjs]
 ifdef::backend-pdf[:source-highlighter: rouge]
 :sectanchors:
 :sectnums:
+:show-link-uri:
 // Asciimath support
 :stem:
 :imagesdir: img
+:xrefstyle: full
 
 :sectnums!:
 // [colophon]
