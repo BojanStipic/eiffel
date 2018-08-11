@@ -91,3 +91,18 @@ include::content/22-zakljucak.adoc[]
 * Eiffel: Analysis, Design and Programming Language, Standard ECMA-367, 2nd Edition / June 2006, http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-367.pdf
 * The Eiffel Library Kernel Standard, Vintage 95 https://archive.eiffel.com/doc/manuals/library/elks/book.fm.html
 * A comprehensive guide to Eiffel syntax, http://eiffel-guide.com/, Avgust 2018.
+
+[appendix]
+== Spisak korišćenih skraćenica
+
+|===
+| Skraćenica | Pun naziv
+
+| DbC | Dizajn po ugovoru (Design by Contract(TM))
+| DRY | "Ne ponavljaj se" (Don't repeat yourself)
+| CQS | Razdvajanje komanda-upit (command-query separation)
+| UAP | Princip uniformnog pristupa (uniform-access principle)
+| SCP | Princip jedinstvenog izbora (single-choice principle)
+| OCP | Otvoreno-zatvoreni princip (open-close principle)
+
+|===
