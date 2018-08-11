@@ -77,18 +77,17 @@ include::content/20-poredjenje.adoc[]
 
 include::content/21-pokusaj-dodele.adoc[]
 
-
-[appendix]
+:sectnums!:
 == Zaključak
 include::content/22-zakljucak.adoc[]
 
-[appendix]
+[bibliography]
 == Literatura
-* Bertrand Meyer, Object Oriented Software Construction
-* "The Eiffel Compiler" (tecomp) an open source Eiffel compiler with documentation http://tecomp.sourceforge.net/
-* LibertyEiffel Wiki http://wiki.liberty-eiffel.org/index.php/Main_Page
-* Eiffel Community documentation https://www.eiffel.org/documentation
-* Eiffel.com online presentations https://www.eiffel.com/resources/presentations/
-* Eiffel: Analysis, Design and Programming Language, Standard ECMA-367, 2nd Edition / June 2006 http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-367.pdf
+* Bertrand Meyer, Object-Oriented Software Construction SECOND EDITION, Prentice Hall, 1997.
+* "The Eiffel Compiler" (tecomp) an open source Eiffel compiler with documentation, http://tecomp.sourceforge.net/, Avgust 2018.
+* LibertyEiffel Wiki, http://wiki.liberty-eiffel.org/index.php/Main_Page, Avgust 2018.
+* Eiffel Community documentation, https://www.eiffel.org/documentation, Avgust 2018.
+* Eiffel.com online presentations, https://www.eiffel.com/resources/presentations/, Avgust 2018.
+* Eiffel: Analysis, Design and Programming Language, Standard ECMA-367, 2nd Edition / June 2006, http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-367.pdf
 * The Eiffel Library Kernel Standard, Vintage 95 https://archive.eiffel.com/doc/manuals/library/elks/book.fm.html
-* A comprehensive guide to Eiffel syntax http://eiffel-guide.com/
+* A comprehensive guide to Eiffel syntax, http://eiffel-guide.com/, Avgust 2018.
