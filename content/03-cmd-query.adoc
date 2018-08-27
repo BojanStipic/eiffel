@@ -50,7 +50,7 @@ Metoda `remove` koja "skida" element sa vrha steka.
 Metoda `item` koja vraća element koji se nalazi na vrhu steka.
 
 Na ovaj način, više uzastopnih poziva `item` metode će uvek vratiti isti element.
-Izraz `pop() + pop()` i izraz `pop() * 2` će imati isti rezultat, što odgovara očekivanjima na osnovu znanja iz matematike.
+Izraz `item + item` i izraz `item * 2` će imati isti rezultat, što odgovara očekivanjima na osnovu znanja iz matematike.
 
 ==== Čitanje iz fajla
 
