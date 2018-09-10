@@ -106,3 +106,11 @@ include::content/22-zakljucak.adoc[]
 | OCP | Otvoreno-zatvoreni princip (open-close principle)
 
 |===
+
+[appendix]
+== Podaci o kandidatu
+
+Kandidat Bojan Stipić je rođen 1995. godine u Novom Sadu.
+Završio je srednju Elektrotehničku školu "Mihajlo Pupin" u Novom Sadu 2014. godine.
+Fakultet tehničkih nauka u Novom Sadu je upisao 2014. godine.
+Ispunio je sve obaveze i položio je sve ispite predviđene studijskim programom.
