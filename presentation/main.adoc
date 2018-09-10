@@ -1,0 +1,239 @@
+= Eiffel metoda programiranja i programski jezik
+Bojan Stipić <bojanstipic@gmail.com>
+:lang: sr_Latn
+include::../locale/attributes.adoc[]
+:icons: font
+:data-uri:
+ifndef::backend-pdf[:source-highlighter: highlightjs]
+ifdef::backend-pdf[:source-highlighter: rouge]
+:show-link-uri:
+:imagesdir: ../img
+:xrefstyle: full
+//:revealjs_theme: white
+:customcss: asciidoctor-revealjs.css
+
+== Eiffel razvojni okvir
+
+.Razvojni okvir se sastoji iz dva usko povezana pojma:
+. *Eiffel metoda programiranja*—skup principa i način razmišljanja o softveru
+koji je u potpunosti objektno orijentisan.
+. *Eiffel programski jezik*—notacija koja omogućava opis sistema razvijenog
+pomoću Eiffel metodologije.
+
+[transition=slide-in fade-out]
+== Eiffel metoda programiranja
+
+* Dizajn po ugovoru
+* Razdvajanje komanda-upit
+* Princip uniformnog pristupa
+* Princip jedinstvenog izbora
+* Otvoreno-zatvoreni princip
+* Razdvajanje opcija-operand
+
+[transition=fade-in slide-out]
+== Eiffel metoda programiranja
+
+* [mark]#Dizajn po ugovoru#
+* Razdvajanje komanda-upit
+* Princip uniformnog pristupa
+* Princip jedinstvenog izbora
+* Otvoreno-zatvoreni princip
+* Razdvajanje opcija-operand
+
+== Dizajn po ugovoru
+
+image::dbc.png[DbC,400,400,float="left"]
+
+Pristup dizajniranju softvera kod kojeg komponente
+sistema međusobno sarađuju na bazi precizno definisanih ugovora.
+
+Na osnovu ugovora, svaka komponenta dobija svoje dužnosti i beneficije.
+
+== Dizajn po ugovoru
+
+Preduslovi (preconditions)::
+Uslovi koji moraju biti ispunjeni pre poziva rutine, kako bi ona mogla da radi ispravno.
+Postuslovi (postconditions)::
+Uslovi koji će biti tačni nakon izvršavanja, ako je rutina radila kako treba.
+Invarijante (invariants)::
+Invarijanta klase garantuje da će se klasa nalaziti uvek u validnom stanju.
+
+== Dizajn po ugovoru
+
+.Primer: implementacija procedure set_crvena:
+[source,eiffel]
+----
+set_crvena (c: INTEGER) is
+		-- Postavi crvenu boju na `c`
+	require --<1>
+		0 <= c and c <= 255
+	do
+		crvena := c
+	ensure --<2>
+		crvena = c
+		zelena = old zelena
+		plava = old plava
+	end
+----
+(1) Ključna reč `require` započinje iskaz preduslova. +
+(2) Ključna reč `ensure` započinje iskaz uslova koji mora biti validan nakon
+izvršavanja procedure.
+
+== Eiffel metoda programiranja
+
+* Dizajn po ugovoru
+* [mark]#Razdvajanje komanda-upit#
+* Princip uniformnog pristupa
+* Princip jedinstvenog izbora
+* Otvoreno-zatvoreni princip
+* Razdvajanje opcija-operand
+
+== Razdvajanje komanda-upit
+
+*Postavljanje pitanja ne treba da menja odgovor.*
+
+Izbegavaju se bočni efekti--slaže se sa matematičkim očekivanjima i pomaže logičkom rezonovanju.
+Na primer, izračunavanjem `√2` ne menja se broj `2`.
+
+== Razdvajanje komanda-upit
+
+.Primer: Tradicionalna implementacija steka sadrži metodu `pop()`:
+
+Povratna vrednost:: element koji se nalazio na vrhu steka.
+Bočni efekat:: element se takođe briše sa steka.
+
+== Razdvajanje komanda-upit
+
+.Rešenje:
+. Metoda `remove` koja "skida" element sa vrha steka.
+. Metoda `item` koja vraća element koji se nalazi na vrhu steka.
+
+`item + item` = `item * 2`
+
+== Eiffel metoda programiranja
+
+* Dizajn po ugovoru
+* Razdvajanje komanda-upit
+* [mark]#Princip uniformnog pristupa#
+* Princip jedinstvenog izbora
+* Otvoreno-zatvoreni princip
+* Razdvajanje opcija-operand
+
+[transition=slide-in fade-out]
+== Princip uniformnog pristupa
+
+.Primer pristupa *polju* u programskom jeziku Java:
+```java
+class A {
+	public int m;
+	…
+}
+```
+
+```java
+A a;
+… // inicijalizacija a
+a.m;
+```
+
+[transition=fade-in slide-out]
+== Princip uniformnog pristupa
+
+.Primer pristupa *metodi* u programskom jeziku Java:
+```java
+class A {
+	public int m() { … }
+	…
+}
+```
+
+```java
+A a;
+… // inicijalizacija a
+a.m();
+```
+
+== Princip uniformnog pristupa
+
+* Da li je upit implementiran kao polje ili metoda--detalj implementacije.
+* Promena implementacije zahteva promenu u svim klijentima ove klase.
+
+== Eiffel metoda programiranja
+
+* Dizajn po ugovoru
+* Razdvajanje komanda-upit
+* Princip uniformnog pristupa
+* [mark]#Princip jedinstvenog izbora#
+* Otvoreno-zatvoreni princip
+* Razdvajanje opcija-operand
+
+== Princip jedinstvenog izbora
+
+Poznatiji kao "Don't repeat yourself" (DRY) princip.
+
+Kada se DRY princip primeni uspešno, modifikacija bilo kog pojedinačnog
+elementa u sistemu ne zahteva promenu u drugim logicki nepovezanim
+elementima.
+
+== Eiffel metoda programiranja
+
+* Dizajn po ugovoru
+* Razdvajanje komanda-upit
+* Princip uniformnog pristupa
+* Princip jedinstvenog izbora
+* [mark]#Otvoreno-zatvoreni princip#
+* Razdvajanje opcija-operand
+
+== Otvoreno-zatvoreni princip
+
+Entiteti treba da budu otvoreni za proširivanje, ali zatvoreni za modifikaciju.
+
+* Otvorenost je prirodna potreba programera--gotovo je nemoguće
+predvideti sve elemente koji će biti potrebni u životnom veku modula.
+* Sa druge strane, postoji i potreba za zatvaranjem modula, kako bi se on mogao upotrebiti.
+
+Dakle, postoji potreba da modul u isto vreme bude i otvoren i zatvoren. Paradoks?
+
+== Otvoreno-zatvoreni princip
+
+[source,eiffel]
+.Meyer-ovo preporučeno rešenje--nasleđivanje:
+----
+class A' inherit
+	A redefine f, g, … end
+feature
+	f is …
+	g is …
+	…
+	u is …
+	…
+end
+----
+
+U modulu `A'` je potrebno navesti samo proširenja, odnosno razlike.
+
+== Eiffel metoda programiranja
+
+* Dizajn po ugovoru
+* Razdvajanje komanda-upit
+* Princip uniformnog pristupa
+* Princip jedinstvenog izbora
+* Otvoreno-zatvoreni princip
+* [mark]#Razdvajanje opcija-operand#
+
+== Razdvajanje opcija-operand
+
+Operacije treba da sadrže samo operande, odnosno informacije potrebne za operaciju,
+a ne opcije koje predstavljaju dodatne informacije.
+Opcije treba da se postavljaju pozivanjem posebnih operacija.
+
+.Na primer, klasa `Dokument` sadrži operaciju `štampaj`:
+[source]
+----
+moj_dokument.štampaj (naziv_štampača, veličina_papira, rezolucija_štampe)
+----
+
+* Svi gore navedeni parametri su *opcije* i potrebno ih je postaviti u zasebnim operacijama.
+* U ovom primeru, jedini *operand* je `moj_dokument`.
+
+== Hvala na pažnji!

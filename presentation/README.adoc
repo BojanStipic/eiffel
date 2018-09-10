@@ -1,0 +1,38 @@
+= Eiffel prezentacija
+:source-highlighter: highlightjs
+:experimental:
+
+== Generisanje prezentacije
+
+```bash
+gem install asciidoctor-revealjs
+git clone --depth 1 https://github.com/hakimel/reveal.js.git
+asciidoctor-revealjs main.adoc
+```
+
+== Izvoz prezentacije u PDF
+
+. Pokrenuti server (na primer `darkhttpd`):
++
+```bash
+darkhttpd .
+```
+. Otvoriti Chromium i na URL dodati parametar `print-pdf`:
++
+```
+localhost:8080/?print-pdf
+```
+. Otvoriti Print dijalog:
+kbd:[Ctrl+P]
+. Odabrati sledeće opcije:
++
+menu:Destination[Save as PDF] +
+menu:Layout[Landscape] +
+menu:Margins[None] +
+menu:Background graphics[✓]
+. Započeti izvoz:
+btn:[Save]
+
+'''
+
+Alternativno, moguće je preuzeti prezentaciju unutar https://github.com/BojanStipic/eiffel/releases[Release] sekcije.
