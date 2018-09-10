@@ -1,5 +1,5 @@
-# Programski jezik Eiffel
-**Naučni rad**
+# Eiffel metoda programiranja i programski jezik
+**Naučni/diplomski rad**
 
 ## Generisanje naučnog rada
 Rad se generiše u PDF i HTML formatu pozivom `make` komande.

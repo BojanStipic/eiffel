@@ -5,7 +5,10 @@ SRC = main.adoc content/* img/* locale/*
 all: ${TARGET}.pdf ${TARGET}.html
 
 ${TARGET}.pdf: ${SRC}
-	asciidoctor-pdf -o $@ $<
+	${eval TEMP = ${shell mktemp}}
+	asciidoctor-pdf -a notitle -o ${TEMP} $<
+	pdfunite Preamble-sr_Latn.pdf ${TEMP} $@
+	rm ${TEMP}
 
 ${TARGET}.html: ${SRC}
 	asciidoctor -o $@ $<
