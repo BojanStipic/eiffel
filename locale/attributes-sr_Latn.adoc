@@ -2,17 +2,17 @@
 :appendix-caption: Dodatak
 :appendix-refsig: {appendix-caption}
 :caution-caption: Oprez
-:chapter-label: Poglavlje
-:chapter-refsig: {chapter-label}
+:chapter-signifier: Poglavlje
+:chapter-refsig: {chapter-signifier}
 :example-caption: Primer
 :figure-caption: Slika
 :important-caption: Važno
 :last-update-label: Poslednje ažurirano
 ifdef::listing-caption[:listing-caption: Listing]
-//:manname-title: NAZIV
+ifdef::manname-title[:manname-title: Naziv]
 :note-caption: Beleška
-:part-label: Deo
-:part-refsig: {part-label}
+:part-signifier: Deo
+:part-refsig: {part-signifier}
 ifdef::preface-title[:preface-title: Predgovor]
 :section-refsig: Sekcija
 :table-caption: Tabela
